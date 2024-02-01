@@ -79,7 +79,7 @@ function filterData(data, searchText) {
   return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
 }
    
-fetchThemePark()
+//fetchThemePark()
 
 textInput.addEventListener("input", function() {
   var filteredParks = filterData(parksList, textInput.value);
