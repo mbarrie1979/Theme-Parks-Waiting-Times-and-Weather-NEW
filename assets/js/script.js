@@ -1,66 +1,11 @@
 // // Brad Code Here don't forget GIT STATUS
 
-// var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json');
-// var mainDiv = document.getElementById('main-div');
-
-// // Convert to jQuery
-
-// fetch(apiUrl)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     var companyData = data;
-
-//     for (var i = 0; i < companyData.length; i++) {
-//       var parks = companyData[i].parks;
-
-//       parks.forEach(function (park) {
-//         var parkId = park.id;
-//         var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json');
-//         var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
-//         var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
-
-//         fetch(disneyEpcot)
-//           .then(function (response) {
-//             return response.json();
-//           })
-//           .then(function (data) {
-//             var lands = data.lands;
-
-//             for (var j = 0; j < lands.length; j++) {
-//               var landName = lands[j].name;
-//               var rides = lands[j].rides;
-
-//               for (var k = 0; k < rides.length; k++) {
-//                 var rideName = rides[k].name;
-//                 var waitTime = rides[k].wait_time;
-//                 var isOpen = rides[k].is_open;
-
-//                 if (isOpen === true) {
-//                   var para = document.createElement('p');
-//                   para.textContent = landName + " is the home of " + rideName +
-//                     ", which currently has a wait time of " + waitTime + " minutes.";
-//                   mainDiv.append(para);
-//                 }
-//               }
-//             }
-//           });
-//       });
-//     }
-//   });
 
 
 
-
-
-
-
-
-let parkId = {};
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
-var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
+// var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
+// var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
 // var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
 // var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
 // var univeralVolcanoBay = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/67/queue_times.json')
@@ -69,10 +14,7 @@ var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://qu
 // var disneyHollywoodStudios = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/7/queue_times.json')
 // var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
 
-// parkId is obtained by iterating through apiUrl data and extracting it somehow???
-
-
-
+// parkId is obtained by iterating through apiUrl data and extracting it somehow?
 
 var mainDiv = document.getElementById('main-div');
 let parks = [];
@@ -100,37 +42,38 @@ fetch(apiUrl)
     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
     var parks = companyData[i].parks
     //console.log(parks)
-    
-    parks.forEach(function (park) {
-      parksList.push(park.name);
-      parksList.sort();
-      var parkId = park.id;  
-      loadData(parksList, parkListElement);   
-      //console.log("This park is called " + parkName + ". Their park ID is " + parkId);
+        parks.forEach(function (park) {
+          parksList.push(park.name);
+          parksList.sort();
+          loadData(parksList, parkListElement);   
       //console.log(parkId) 
-      //console.log(parks)
-      
       //console.log(parksList)
     });
     
    }
   })
 }
-
-
 //console.log(parksList)
 
 function loadData(data, element) {
-  if(data) {
+  if (data) {
     element.innerHTML = "";
-    let innerElement = ""
-    data.forEach((item) => {
-      innerElement += `
-      <li>${item}</li>`;
+    let innerElement = "";
+    data.forEach((park) => {
+      innerElement += `<li data-parkid="${park.id}">${park}</li>`;
     });
     element.innerHTML = innerElement;
+    document.querySelectorAll('#theme-park-list li').forEach((li) => {
+      li.addEventListener('click', function() {
+        console.log(event.target.textContent);
+      });
+    });
   }
 }
+
+// function handleParkSelection(event) {
+//    console.log(event.target.textConent);
+// }
 
 function filterData(data, searchText) {
   return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
@@ -143,7 +86,7 @@ textInput.addEventListener("input", function() {
   loadData(filteredParks, parkListElement);
 });
 
-
+// Code below to pull wait times
 
 // fetch(universalOrlando)
 //   .then(function (response) {
@@ -182,7 +125,7 @@ textInput.addEventListener("input", function() {
 //   });
 
 
-
+// ------------------------------------------------------
 
   // Original code before 2.1.24:
 
@@ -250,6 +193,64 @@ textInput.addEventListener("input", function() {
      
 //     }
 //   });
+
+
+
+// -----------------------------------------------
+
+// Older code: 
+
+// var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json');
+// var mainDiv = document.getElementById('main-div');
+
+// // Convert to jQuery
+
+// fetch(apiUrl)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     var companyData = data;
+
+//     for (var i = 0; i < companyData.length; i++) {
+//       var parks = companyData[i].parks;
+
+//       parks.forEach(function (park) {
+//         var parkId = park.id;
+//         var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json');
+//         var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
+//         var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
+
+//         fetch(disneyEpcot)
+//           .then(function (response) {
+//             return response.json();
+//           })
+//           .then(function (data) {
+//             var lands = data.lands;
+
+//             for (var j = 0; j < lands.length; j++) {
+//               var landName = lands[j].name;
+//               var rides = lands[j].rides;
+
+//               for (var k = 0; k < rides.length; k++) {
+//                 var rideName = rides[k].name;
+//                 var waitTime = rides[k].wait_time;
+//                 var isOpen = rides[k].is_open;
+
+//                 if (isOpen === true) {
+//                   var para = document.createElement('p');
+//                   para.textContent = landName + " is the home of " + rideName +
+//                     ", which currently has a wait time of " + waitTime + " minutes.";
+//                   mainDiv.append(para);
+//                 }
+//               }
+//             }
+//           });
+//       });
+//     }
+//   });
+
+
 
 
 
