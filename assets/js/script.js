@@ -1,5 +1,205 @@
 // // Brad Code Here don't forget GIT STATUS
 
+
+
+
+var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
+// var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
+// var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
+// var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
+// var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
+// var univeralVolcanoBay = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/67/queue_times.json')
+// var disneyMagicKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/6/queue_times.json')
+// var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
+// var disneyHollywoodStudios = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/7/queue_times.json')
+// var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
+
+// parkId is obtained by iterating through apiUrl data and extracting it somehow?
+
+var mainDiv = document.getElementById('main-div');
+let parks = [];
+let parksList = [];
+var parkListElement = document.querySelector('#theme-park-list')
+var textInput = document.querySelector('#text-input')
+
+// Convert to jquery 
+
+function fetchThemePark() {
+
+fetch(apiUrl) 
+  .then(function (response) {
+   return response.json()
+  })
+  .then(function (data) {
+   //console.log(data)
+   var companyData = data;
+   //console.log(companyData)
+   for (var i = 0; i < companyData.length; i++) {
+    var companyName = companyData[i].name
+    var companyId = companyData[i].id
+    //console.log(companyName)
+    //console.log(companyId)
+    //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
+    var parks = companyData[i].parks
+    //console.log(parks)
+        parks.forEach(function (park) {
+          parksList.push(park.name);
+          parksList.sort();
+          loadData(parksList, parkListElement);   
+      //console.log(parkId) 
+      //console.log(parksList)
+    });
+    
+   }
+  })
+}
+//console.log(parksList)
+
+function loadData(data, element) {
+  if (data) {
+    element.innerHTML = "";
+    let innerElement = "";
+    data.forEach((park) => {
+      innerElement += `<li data-parkid="${park.id}">${park}</li>`;
+    });
+    element.innerHTML = innerElement;
+    document.querySelectorAll('#theme-park-list li').forEach((li) => {
+      li.addEventListener('click', function() {
+        console.log(event.target.textContent);
+      });
+    });
+  }
+}
+
+// function handleParkSelection(event) {
+//    console.log(event.target.textConent);
+// }
+
+function filterData(data, searchText) {
+  return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
+}
+   
+//fetchThemePark()
+
+textInput.addEventListener("input", function() {
+  var filteredParks = filterData(parksList, textInput.value);
+  loadData(filteredParks, parkListElement);
+});
+
+// Code below to pull wait times
+
+// fetch(universalOrlando)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     //console.log(data)
+//     var lands = data.lands;
+
+//     for (var i = 0; i < lands.length; i++) {
+//       var landName = lands[i].name;
+//       //console.log(landName);
+
+//       var rides = lands[i].rides;
+//       for (var j = 0; j < rides.length; j++) {
+//         var rideName = rides[j].name;
+//         //console.log(rideName);
+
+        
+//         var waitTime = rides[j].wait_time;
+//         //console.log("Wait Time:", waitTime);
+
+//         var isOpen = rides[j].is_open;
+//         //console.log("Is Open:", isOpen);
+        
+//         //if (isOpen === true) {
+//         //console.log("This ride is open: " + isOpen)
+//         // var para = document.createElement('p');
+//         // para.textContent = landName + " is the home of " + rideName  + 
+//         // ", which currently has a wait time of " + waitTime  + " minutes." 
+//         // mainDiv.append(para)
+//         //}
+//       }
+     
+//     }
+//   });
+
+
+// ------------------------------------------------------
+
+  // Original code before 2.1.24:
+
+//   fetch(apiUrl) 
+//   .then(function (response) {
+//    return response.json()
+//   })
+//   .then(function (data) {
+//    //console.log(data)
+//    var companyData = data;
+//    //console.log(companyData)
+//    for (var i = 0; i < companyData.length; i++) {
+//     var companyName = companyData[i].name
+//     var companyId = companyData[i].id
+//     //console.log(companyName)
+//     //console.log(companyId)
+//     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
+//     var parks = companyData[i].parks
+//     //console.log(parks)
+//     parks.forEach(function (park) {
+//       var parkName = park.name; // Use 'park' instead of 'parks[j]'
+//       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
+//       //console.log("This park is called " + parkName + ". Their park ID is " + parkId);
+      
+//     });
+//     //console.log(parkId)  
+    
+//    }
+//   })
+
+
+    
+// fetch(universalOrlando)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     //console.log(data)
+//     var lands = data.lands;
+
+//     for (var i = 0; i < lands.length; i++) {
+//       var landName = lands[i].name;
+//       //console.log(landName);
+
+//       var rides = lands[i].rides;
+//       for (var j = 0; j < rides.length; j++) {
+//         var rideName = rides[j].name;
+//         //console.log(rideName);
+
+        
+//         var waitTime = rides[j].wait_time;
+//         //console.log("Wait Time:", waitTime);
+
+//         var isOpen = rides[j].is_open;
+//         //console.log("Is Open:", isOpen);
+        
+//         if (isOpen === true) {
+//           console.log("This ride is open: " + isOpen)
+//         // var para = document.createElement('p');
+//         // para.textContent = landName + " is the home of " + rideName  + 
+//         // ", which currently has a wait time of " + waitTime  + " minutes." 
+//         // mainDiv.append(para)
+//         }
+//       }
+     
+//     }
+//   });
+
+
+
+// -----------------------------------------------
+
+// Older code: 
+
 // var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json');
 // var mainDiv = document.getElementById('main-div');
 
@@ -57,56 +257,56 @@
 
 
 
-let parkId = {};
-var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
-var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
-// var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
-// var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
-// var univeralVolcanoBay = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/67/queue_times.json')
-// var disneyMagicKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/6/queue_times.json')
-// var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
-// var disneyHollywoodStudios = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/7/queue_times.json')
-// var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
+// let parkId = {};
+// var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
+// var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
+// var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
+// // var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
+// // var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
+// // var univeralVolcanoBay = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/67/queue_times.json')
+// // var disneyMagicKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/6/queue_times.json')
+// // var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
+// // var disneyHollywoodStudios = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/7/queue_times.json')
+// // var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
 
-// parkId is obtained by iterating through apiUrl data and extracting it somehow???
-
-
-
-
-var mainDiv = document.getElementById('main-div')
-
-// Convert to jquery 
-
-fetch(apiUrl)
-  .then(function (response) {
-    return response.json()
-  })
-  .then(function (data) {
-    //console.log(data)
-    var companyData = data;
-    //console.log(companyData)
-    for (var i = 0; i < companyData.length; i++) {
-      var companyName = companyData[i].name
-      var companyId = companyData[i].id
-      //console.log(companyName)
-      //console.log(companyId)
-      //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
-      var parks = companyData[i].parks
-      //console.log(parks)
-      parks.forEach(function (park) {
-        var parkName = park.name; // Use 'park' instead of 'parks[j]'
-        var parkId = park.id;     // Use 'park' instead of 'parks[j]'
-        console.log("This park is called " + parkName + ". Their park ID is " + parkId);
-
-      });
-      console.log(parkId)
-
-    }
-  })
+// // parkId is obtained by iterating through apiUrl data and extracting it somehow???
 
 
 
+
+// var mainDiv = document.getElementById('main-div')
+
+// // Convert to jquery 
+
+// fetch(apiUrl) 
+//   .then(function (response) {
+//    return response.json()
+//   })
+//   .then(function (data) {
+//    //console.log(data)
+//    var companyData = data;
+//    //console.log(companyData)
+//    for (var i = 0; i < companyData.length; i++) {
+//     var companyName = companyData[i].name
+//     var companyId = companyData[i].id
+//     //console.log(companyName)
+//     //console.log(companyId)
+//     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
+//     var parks = companyData[i].parks
+//     //console.log(parks)
+//     parks.forEach(function (park) {
+//       var parkName = park.name; // Use 'park' instead of 'parks[j]'
+//       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
+//       console.log("This park is called " + parkName + ". Their park ID is " + parkId);
+      
+//     });
+//     console.log(parkId)  
+    
+//    }
+//   })
+
+
+    
 // fetch(universalOrlando)
 //   .then(function (response) {
 //     return response.json();
@@ -124,13 +324,13 @@ fetch(apiUrl)
 //         var rideName = rides[j].name;
 //         //console.log(rideName);
 
-
+        
 //         var waitTime = rides[j].wait_time;
 //         //console.log("Wait Time:", waitTime);
 
 //         var isOpen = rides[j].is_open;
 //         //console.log("Is Open:", isOpen);
-
+        
 //         if (isOpen === true) {
 //         var para = document.createElement('p');
 //         para.textContent = landName + " is the home of " + rideName  + 
@@ -138,7 +338,7 @@ fetch(apiUrl)
 //         mainDiv.append(para)
 //         }
 //       }
-
+     
 //     }
 //   });
 
