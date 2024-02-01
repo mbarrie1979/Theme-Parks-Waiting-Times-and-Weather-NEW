@@ -18,7 +18,7 @@
 
 AS A Theme Park patron
 I WANT to see the wait times for rides and the weather
-SO THAT I can plan my day accordigly
+SO THAT I can plan my day accordingly
 ```
 
 ## Acceptance Criteria
