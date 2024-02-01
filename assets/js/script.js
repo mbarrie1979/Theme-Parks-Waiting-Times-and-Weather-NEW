@@ -74,9 +74,15 @@ var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://qu
 
 
 
-var mainDiv = document.getElementById('main-div')
+var mainDiv = document.getElementById('main-div');
+let parks = [];
+let parksList = [];
+var parkListElement = document.querySelector('#theme-park-list')
+var textInput = document.querySelector('#text-input')
 
 // Convert to jquery 
+
+function fetchThemePark() {
 
 fetch(apiUrl) 
   .then(function (response) {
@@ -94,53 +100,156 @@ fetch(apiUrl)
     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
     var parks = companyData[i].parks
     //console.log(parks)
+    
     parks.forEach(function (park) {
-      var parkName = park.name; // Use 'park' instead of 'parks[j]'
-      var parkId = park.id;     // Use 'park' instead of 'parks[j]'
-      console.log("This park is called " + parkName + ". Their park ID is " + parkId);
+      parksList.push(park.name);
+      parksList.sort();
+      var parkId = park.id;  
+      loadData(parksList, parkListElement);   
+      //console.log("This park is called " + parkName + ". Their park ID is " + parkId);
+      //console.log(parkId) 
+      //console.log(parks)
       
+      //console.log(parksList)
     });
-    console.log(parkId)  
     
    }
   })
+}
+
+
+//console.log(parksList)
+
+function loadData(data, element) {
+  if(data) {
+    element.innerHTML = "";
+    let innerElement = ""
+    data.forEach((item) => {
+      innerElement += `
+      <li>${item}</li>`;
+    });
+    element.innerHTML = innerElement;
+  }
+}
+
+function filterData(data, searchText) {
+  return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
+}
+   
+fetchThemePark()
+
+textInput.addEventListener("input", function() {
+  var filteredParks = filterData(parksList, textInput.value);
+  loadData(filteredParks, parkListElement);
+});
+
+
+
+// fetch(universalOrlando)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     //console.log(data)
+//     var lands = data.lands;
+
+//     for (var i = 0; i < lands.length; i++) {
+//       var landName = lands[i].name;
+//       //console.log(landName);
+
+//       var rides = lands[i].rides;
+//       for (var j = 0; j < rides.length; j++) {
+//         var rideName = rides[j].name;
+//         //console.log(rideName);
+
+        
+//         var waitTime = rides[j].wait_time;
+//         //console.log("Wait Time:", waitTime);
+
+//         var isOpen = rides[j].is_open;
+//         //console.log("Is Open:", isOpen);
+        
+//         //if (isOpen === true) {
+//         //console.log("This ride is open: " + isOpen)
+//         // var para = document.createElement('p');
+//         // para.textContent = landName + " is the home of " + rideName  + 
+//         // ", which currently has a wait time of " + waitTime  + " minutes." 
+//         // mainDiv.append(para)
+//         //}
+//       }
+     
+//     }
+//   });
+
+
+
+
+  // Original code before 2.1.24:
+
+//   fetch(apiUrl) 
+//   .then(function (response) {
+//    return response.json()
+//   })
+//   .then(function (data) {
+//    //console.log(data)
+//    var companyData = data;
+//    //console.log(companyData)
+//    for (var i = 0; i < companyData.length; i++) {
+//     var companyName = companyData[i].name
+//     var companyId = companyData[i].id
+//     //console.log(companyName)
+//     //console.log(companyId)
+//     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
+//     var parks = companyData[i].parks
+//     //console.log(parks)
+//     parks.forEach(function (park) {
+//       var parkName = park.name; // Use 'park' instead of 'parks[j]'
+//       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
+//       //console.log("This park is called " + parkName + ". Their park ID is " + parkId);
+      
+//     });
+//     //console.log(parkId)  
+    
+//    }
+//   })
 
 
     
-fetch(universalOrlando)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-    var lands = data.lands;
+// fetch(universalOrlando)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     //console.log(data)
+//     var lands = data.lands;
 
-    for (var i = 0; i < lands.length; i++) {
-      var landName = lands[i].name;
-      //console.log(landName);
+//     for (var i = 0; i < lands.length; i++) {
+//       var landName = lands[i].name;
+//       //console.log(landName);
 
-      var rides = lands[i].rides;
-      for (var j = 0; j < rides.length; j++) {
-        var rideName = rides[j].name;
-        //console.log(rideName);
+//       var rides = lands[i].rides;
+//       for (var j = 0; j < rides.length; j++) {
+//         var rideName = rides[j].name;
+//         //console.log(rideName);
 
         
-        var waitTime = rides[j].wait_time;
-        //console.log("Wait Time:", waitTime);
+//         var waitTime = rides[j].wait_time;
+//         //console.log("Wait Time:", waitTime);
 
-        var isOpen = rides[j].is_open;
-        //console.log("Is Open:", isOpen);
+//         var isOpen = rides[j].is_open;
+//         //console.log("Is Open:", isOpen);
         
-        if (isOpen === true) {
-        var para = document.createElement('p');
-        para.textContent = landName + " is the home of " + rideName  + 
-        ", which currently has a wait time of " + waitTime  + " minutes." 
-        mainDiv.append(para)
-        }
-      }
+//         if (isOpen === true) {
+//           console.log("This ride is open: " + isOpen)
+//         // var para = document.createElement('p');
+//         // para.textContent = landName + " is the home of " + rideName  + 
+//         // ", which currently has a wait time of " + waitTime  + " minutes." 
+//         // mainDiv.append(para)
+//         }
+//       }
      
-    }
-  });
+//     }
+//   });
 
 
 
