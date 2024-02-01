@@ -78,69 +78,69 @@ var mainDiv = document.getElementById('main-div')
 
 // Convert to jquery 
 
-fetch(apiUrl) 
+fetch(apiUrl)
   .then(function (response) {
-   return response.json()
+    return response.json()
   })
   .then(function (data) {
-   //console.log(data)
-   var companyData = data;
-   //console.log(companyData)
-   for (var i = 0; i < companyData.length; i++) {
-    var companyName = companyData[i].name
-    var companyId = companyData[i].id
-    //console.log(companyName)
-    //console.log(companyId)
-    //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
-    var parks = companyData[i].parks
-    //console.log(parks)
-    parks.forEach(function (park) {
-      var parkName = park.name; // Use 'park' instead of 'parks[j]'
-      var parkId = park.id;     // Use 'park' instead of 'parks[j]'
-      console.log("This park is called " + parkName + ". Their park ID is " + parkId);
-      
-    });
-    console.log(parkId)  
-    
-   }
-  })
+    //console.log(data)
+    var companyData = data;
+    //console.log(companyData)
+    for (var i = 0; i < companyData.length; i++) {
+      var companyName = companyData[i].name
+      var companyId = companyData[i].id
+      //console.log(companyName)
+      //console.log(companyId)
+      //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
+      var parks = companyData[i].parks
+      //console.log(parks)
+      parks.forEach(function (park) {
+        var parkName = park.name; // Use 'park' instead of 'parks[j]'
+        var parkId = park.id;     // Use 'park' instead of 'parks[j]'
+        console.log("This park is called " + parkName + ". Their park ID is " + parkId);
 
+      });
+      console.log(parkId)
 
-    
-fetch(universalOrlando)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-    var lands = data.lands;
-
-    for (var i = 0; i < lands.length; i++) {
-      var landName = lands[i].name;
-      //console.log(landName);
-
-      var rides = lands[i].rides;
-      for (var j = 0; j < rides.length; j++) {
-        var rideName = rides[j].name;
-        //console.log(rideName);
-
-        
-        var waitTime = rides[j].wait_time;
-        //console.log("Wait Time:", waitTime);
-
-        var isOpen = rides[j].is_open;
-        //console.log("Is Open:", isOpen);
-        
-        if (isOpen === true) {
-        var para = document.createElement('p');
-        para.textContent = landName + " is the home of " + rideName  + 
-        ", which currently has a wait time of " + waitTime  + " minutes." 
-        mainDiv.append(para)
-        }
-      }
-     
     }
-  });
+  })
+
+
+
+// fetch(universalOrlando)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+//     var lands = data.lands;
+
+//     for (var i = 0; i < lands.length; i++) {
+//       var landName = lands[i].name;
+//       //console.log(landName);
+
+//       var rides = lands[i].rides;
+//       for (var j = 0; j < rides.length; j++) {
+//         var rideName = rides[j].name;
+//         //console.log(rideName);
+
+
+//         var waitTime = rides[j].wait_time;
+//         //console.log("Wait Time:", waitTime);
+
+//         var isOpen = rides[j].is_open;
+//         //console.log("Is Open:", isOpen);
+
+//         if (isOpen === true) {
+//         var para = document.createElement('p');
+//         para.textContent = landName + " is the home of " + rideName  + 
+//         ", which currently has a wait time of " + waitTime  + " minutes." 
+//         mainDiv.append(para)
+//         }
+//       }
+
+//     }
+//   });
 
 
 
@@ -242,23 +242,23 @@ fetch(universalOrlando)
 
 
 //AJAX call requires a third party library, jQuery
-var city = '';
-var weatherAPI = '';
-var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPI + '&units=imperial'
+var city = 'Orlando';
+var weatherAPIKey = 'f5ae2638dc599c5d3619396cd657ae93';
+var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPIKey + '&units=imperial'
 var weather = {};
 
 
 
 // rewuest for openWeather API
 $.ajax({
-    url: requestWeatherUrl,
-    method: 'GET',
+  url: requestWeatherUrl,
+  method: 'GET',
 }).then(function (response) {
-    console.log(response);
-    weather.temp = response.main.temp
-    weather.feels_like = response.main.feels_like
-    weather.description = response.weather[0].description
-    weather.wind_speed = response.wind.speed;
-    weather.humidity = response.main.humidity;
-    console.log(weather)
+  // console.log(response);
+  weather.temp = response.main.temp
+  weather.feels_like = response.main.feels_like
+  weather.description = response.weather[0].description
+  weather.wind_speed = response.wind.speed;
+  weather.humidity = response.main.humidity;
+  console.log(weather)
 });;
