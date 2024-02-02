@@ -2,9 +2,9 @@
 
 
 
-
+var parkId = 65
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-// var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
+var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
 // var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
 // var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
 // var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
@@ -15,115 +15,131 @@ var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.
 // var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
 
 // parkId is obtained by iterating through apiUrl data and extracting it somehow?
+var dataFetched = false; // Flag to indicate if the data has been fetched
 
 var mainDiv = document.getElementById('main-div');
-let parks = [];
-let parksList = [];
+var parks = [];
+var parksList = [];
+var parkObjects = [];
 var parkListElement = document.querySelector('#theme-park-list')
 var textInput = document.querySelector('#text-input')
 
-// Convert to jquery 
+
 
 function fetchThemePark() {
-
-  fetch(apiUrl)
-    .then(function (response) {
-      return response.json()
-    })
-    .then(function (data) {
-      //console.log(data)
+  $.ajax({
+    url: apiUrl,
+    method: 'GET',
+    success: function (data) {
       var companyData = data;
-      //console.log(companyData)
+      console.log(companyData)
       for (var i = 0; i < companyData.length; i++) {
-
-        var parks = companyData[i].parks
-        //console.log(parks)
+        var parks = companyData[i].parks;
         parks.forEach(function (park) {
           parksList.push(park.name);
-          parksList.sort();
-          loadData(parksList, parkListElement);
-
+          parkObjects.push({ name: park.name, id: park.id })
         });
+        parksList.sort();
+        loadData(parksList, parkListElement);
 
       }
-    })
+      console.log(parksList)
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching data: ", error);
+    }
+  });
 }
-//console.log(parksList)
 
+
+
+// Load data into the element
+// Update the loadData function to include park id in the li element
 function loadData(data, element) {
-  if (data) {
-    element.innerHTML = "";
-    var innerElement = "";
-    data.forEach((park) => {
-      innerElement += `<li data-parkid="${park.id}">${park}</li>`;
-    });
-    element.innerHTML = innerElement;
-    document.querySelectorAll('#theme-park-list li').forEach((li) => {
-      li.addEventListener('click', function () {
-        console.log(event.target.textContent);
-      });
-    });
-  }
-}
+  var innerElement = "";
+  data.forEach(function (park) {
+    // Assuming parkObjects contains objects with name and id
+    const parkObj = parkObjects.find(p => p.name === park);
+    if (parkObj) {
+      innerElement += `<li data-parkid="${parkObj.id}">${park}</li>`;
+    }
+  });
+  $(element).html(innerElement);
+};
 
-// function handleParkSelection(event) {
-//    console.log(event.target.textConent);
-// }
+// Attach click event listener to the parent ul element and use event delegation
+$('#theme-park-list').on('click', 'li', function () {
+  console.log($(this).text());
+  var parkId = $(this).data('parkid'); // This retrieves the data-parkid attribute value
+  console.log(parkId); // Now parkId holds the id of the clicked park
+  getWaitTimes(parkId);
+});
 
+
+
+
+// Filter data based on search text
 function filterData(data, searchText) {
-  return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
+  return data.filter(function (x) {
+    return x.toLowerCase().includes(searchText.toLowerCase());
+  });
 }
 
+// Add event listener using jQuery
+$(textInput).on('input', function () {
+  if (!dataFetched && $(this).val().length > 0) {
+    fetchThemePark(); // Fetch data when input is detected and data has not been fetched
+    dataFetched = true; // Update the flag
+  }
 
-
-textInput.addEventListener("input", function () {
-  if (textInput.value.length > 0) {
-    var filteredParks = filterData(parksList, textInput.value);
-
+  if ($(this).val().length > 0) {
+    var filteredParks = filterData(parksList, $(this).val());
     loadData(filteredParks, parkListElement);
   } else {
-    parkListElement.innerHTML = ''; // Clear the list if there's no input
+    $(parkListElement).html(''); // Clear the list if there's no input
   }
 });
 
-fetchThemePark()
+
+
 // Code below to pull wait times
 
-// fetch(universalOrlando)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     //console.log(data)
-//     var lands = data.lands;
-
-//     for (var i = 0; i < lands.length; i++) {
-//       var landName = lands[i].name;
-//       //console.log(landName);
-
-//       var rides = lands[i].rides;
-//       for (var j = 0; j < rides.length; j++) {
-//         var rideName = rides[j].name;
-//         //console.log(rideName);
 
 
-//         var waitTime = rides[j].wait_time;
-//         //console.log("Wait Time:", waitTime);
+function getWaitTimes(parkId) {
 
-//         var isOpen = rides[j].is_open;
-//         //console.log("Is Open:", isOpen);
+  $.ajax({
+    url: parkInfoAPI,
+    method: "GET",
+    success: function(data) {
+      console.log(data);
+      var lands = data.lands;
 
-//         //if (isOpen === true) {
-//         //console.log("This ride is open: " + isOpen)
-//         // var para = document.createElement('p');
-//         // para.textContent = landName + " is the home of " + rideName  + 
-//         // ", which currently has a wait time of " + waitTime  + " minutes." 
-//         // mainDiv.append(para)
-//         //}
-//       }
+      lands.forEach(function(land) {
+        var rides = land.rides;
 
-//     }
-//   });
+        rides.forEach(function(ride) {
+          console.log(ride.name);
+          console.log("Wait Time:", ride.wait_time);
+          console.log("Is Open:", ride.is_open);
+        });
+      });
+    },
+    error: function(xhr, status, error) {
+      console.error("Error:", error);
+    }
+  });
+}
+
+
+
+// if (isOpen === true) {
+// console.log("This ride is open: " + isOpen)
+// var para = document.createElement('p');
+// para.textContent = landName + " is the home of " + rideName  + 
+// ", which currently has a wait time of " + waitTime  + " minutes." 
+// mainDiv.append(para)
+// }
 
 
 // ------------------------------------------------------
@@ -342,81 +358,6 @@ fetchThemePark()
 
 //     }
 //   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
