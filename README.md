@@ -36,3 +36,6 @@ THEN I am presented with a button to sort rides by alphabetical order for wait t
 
 
 ```
+## Screenshots
+
+- ![Screenshot 1](./assets/readme_screenshots/Mock_Up_1.jpg)
