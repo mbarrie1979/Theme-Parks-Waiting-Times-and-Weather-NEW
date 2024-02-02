@@ -6,41 +6,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theme Park Wait Times and Weather</title>
     <!-- Brian and Eric decide CSS Framework and place <link> here to cdn don't forget GIT STATUS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
     <!-- David Code Here based on mockup don't forget GIT STATUS-->
+
+
     <main>
-        <header>
-            <nav>
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                </ul>
-            </nav>
-            <h1>Theme Park Waiting Times and Weather</h1>
-        </header>
-        <form>
-            <input type="text" id="text-input" class="autocomplete-input" placeholder="Search for a Theme Park">
-            <!-- <button>search</button> -->
-            <ul class="autocomplete-list" id="theme-park-list">              
-            </ul>
-        </form>
-        <section id="card-section">
+        <nav class="navbar" role="navigation  " aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    <h1
+                        style="font-weight: bolder; font-size:30px; background-color: lightblue;padding:10px; border-radius: 10px;">
+                        themePark current wait times and weather!</h1>
+                </a>
 
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
 
-        </section>
-        <!-- Brad added div to test appending to DOM -->
-        <div id="main-div">
+            <div id="navbarBasicExample" class="navbar-menu is-hoverable">
+                <div class="navbar-start">
+                    <a class="navbar-item">
+                        Home
+                    </a>
 
-        </div>
+                    <a class="navbar-item">
+                        Documentation
+                    </a>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            More
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                About
+                            </a>
+                            <a class="navbar-item">
+                                Jobs
+                            </a>
+                            <a class="navbar-item" href="http://www.google.com">
+                                Contact
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item">
+                                Report an issue
+                            </a>
+                        </div>
+                    </div>
+                </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!-- Brian and Eric decide CSS Framework and place <script> here to cdn don't forget GIT STATUS-->
-    <script src="./assets/js/script.js"></script>
+    </header>
+
+
+    <!-- <<<<<<< Updated upstream <form>
+        <input type="text" id="text-input" class="autocomplete-input" placeholder="Search for a Theme Park">
+        <button>search</button> -->
+        <!-- <ul class="autocomplete-list" id="theme-park-list">
+        </ul>
+        </form> -->
+        <!-- <section id="card-section">
+
+
+        </section> -->
+        =======
+
+
+        <div id="box" class="container width">
+            <div class="notification is-light">
+                <section class="section ">
+                    <h1 class="title"></h1>
+                    <h2 class="subtitle">
+                        <header id="title">
+                         
+                            <div class="control">
+                            <input class="input is-focused autocomplete-input" type="text"
+                                placeholder="search themePark..." id="searchbar  text-input">
+                            </div>
+
+                        </header>
+
+                       
+
+
+                        <div id="main">
+
+                            <!-- <div class="control">
+                                <input class="input is-focused autocomplete-input" type="text"
+                                    placeholder="search themePark..." id="searchbar  text-input">
+                            </div> -->
+                            <!-- <input type="text" class="searchbar" placeholder="search theme park..." id="searchbox">
+                                    <input type="text" class="searchbar" placeholder="search location..." id="searchbox2"><br>
+                                 -->
+                            <ul class="autocomplete-list" id="theme-park-list">
+
+                            </ul>
+
+                        </div>
+
+                        <section id="container">
+
+                            
+                        
+
+                            <div id="box1">
+                                <h2>Theme parks:</h2>
+                                <p id="ptag"></p>
+                            </div>
+
+                            <div id="box2">
+                                <h2 id="locate">location<br></h2>
+                                <h4>time<br>
+                                    wait time:<br>
+                                    discription: <p></p>
+                                </h4>
+
+                            </div>
+                        </section>
+
+                        <!-- >>>>>>> Stashed changes -->
+                        <!-- Brad added div to test appending to DOM -->
+                        <div id="main-div">
+
+                        </div>
+                        </main>
+
+                        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+                        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+                            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+                            crossorigin="anonymous"></script>
+                        <!-- Brian and Eric decide CSS Framework and place <script> here to cdn don't forget GIT STATUS-->
+                        <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
