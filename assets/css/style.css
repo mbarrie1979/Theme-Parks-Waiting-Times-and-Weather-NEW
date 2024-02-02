@@ -100,6 +100,50 @@
 /* Eric code here don't forget GIT STATUS */
 
 
+*{
+    box-sizing: border-box;
+    margin:0px;
+    padding:0px;
+}
+body{
+    background:rgba(0,0,0,0.7) url(../images/bg-img.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+}
 
+.width{
+    width:40rem;
+}
 
+#container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    display: none;
+}
 
+.display-show{
+display: block;
+}
+
+#box1, #box2{
+    box-shadow:0px 0px 10px white;
+    width:30rem;
+    height:25rem;
+    margin:20px;
+    color:white;
+    background-image: linear-gradient(45deg,rgb(5, 3, 14),rgb(6, 30, 35));
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius:15px;
+    display:none;
+    opacity: 90%;
+}
