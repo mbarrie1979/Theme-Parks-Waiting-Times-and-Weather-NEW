@@ -1,5 +1,6 @@
 # Theme-Parks-Waiting-Times-and-Weather-NEW
 
+# Team Strings
 
 ## Team Members
 -**David Wright**
@@ -18,7 +19,7 @@
 
 AS A Theme Park patron
 I WANT to see the wait times for rides and the weather
-SO THAT I can plan my day accordigly
+SO THAT I can plan my day accordingly
 ```
 
 ## Acceptance Criteria
@@ -36,3 +37,19 @@ THEN I am presented with a button to sort rides by alphabetical order for wait t
 
 
 ```
+## Description
+The purpose of this web application is to help people search theme park rides and their wait times, along with weather affiliated with that area.
+
+```
+
+## APIs Used
+
+```
+[Theme-Park-Wait-Times-API](https://queue-times.com/en-US/pages/api)
+[Open-Weather-API](https://openweathermap.org/api)
+
+```
+## CSS Framework
+[Bulma](https://bulma.io/)
+``` 
+
