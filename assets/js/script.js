@@ -26,45 +26,40 @@ var textInput = document.querySelector('#text-input')
 
 function fetchThemePark() {
 
-fetch(apiUrl) 
-  .then(function (response) {
-   return response.json()
-  })
-  .then(function (data) {
-   //console.log(data)
-   var companyData = data;
-   //console.log(companyData)
-   for (var i = 0; i < companyData.length; i++) {
-    var companyName = companyData[i].name
-    var companyId = companyData[i].id
-    //console.log(companyName)
-    //console.log(companyId)
-    //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
-    var parks = companyData[i].parks
-    //console.log(parks)
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (data) {
+      //console.log(data)
+      var companyData = data;
+      //console.log(companyData)
+      for (var i = 0; i < companyData.length; i++) {
+
+        var parks = companyData[i].parks
+        //console.log(parks)
         parks.forEach(function (park) {
           parksList.push(park.name);
           parksList.sort();
-          loadData(parksList, parkListElement);   
-      //console.log(parkId) 
-      //console.log(parksList)
-    });
-    
-   }
-  })
+          loadData(parksList, parkListElement);
+
+        });
+
+      }
+    })
 }
 //console.log(parksList)
 
 function loadData(data, element) {
   if (data) {
     element.innerHTML = "";
-    let innerElement = "";
+    var innerElement = "";
     data.forEach((park) => {
       innerElement += `<li data-parkid="${park.id}">${park}</li>`;
     });
     element.innerHTML = innerElement;
     document.querySelectorAll('#theme-park-list li').forEach((li) => {
-      li.addEventListener('click', function() {
+      li.addEventListener('click', function () {
         console.log(event.target.textContent);
       });
     });
@@ -78,14 +73,20 @@ function loadData(data, element) {
 function filterData(data, searchText) {
   return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
 }
-   
-fetchThemePark()
 
-textInput.addEventListener("input", function() {
-  var filteredParks = filterData(parksList, textInput.value);
-  loadData(filteredParks, parkListElement);
+
+
+textInput.addEventListener("input", function () {
+  if (textInput.value.length > 0) {
+    var filteredParks = filterData(parksList, textInput.value);
+
+    loadData(filteredParks, parkListElement);
+  } else {
+    parkListElement.innerHTML = ''; // Clear the list if there's no input
+  }
 });
 
+fetchThemePark()
 // Code below to pull wait times
 
 // fetch(universalOrlando)
@@ -105,13 +106,13 @@ textInput.addEventListener("input", function() {
 //         var rideName = rides[j].name;
 //         //console.log(rideName);
 
-        
+
 //         var waitTime = rides[j].wait_time;
 //         //console.log("Wait Time:", waitTime);
 
 //         var isOpen = rides[j].is_open;
 //         //console.log("Is Open:", isOpen);
-        
+
 //         //if (isOpen === true) {
 //         //console.log("This ride is open: " + isOpen)
 //         // var para = document.createElement('p');
@@ -120,14 +121,14 @@ textInput.addEventListener("input", function() {
 //         // mainDiv.append(para)
 //         //}
 //       }
-     
+
 //     }
 //   });
 
 
 // ------------------------------------------------------
 
-  // Original code before 2.1.24:
+// Original code before 2.1.24:
 
 //   fetch(apiUrl) 
 //   .then(function (response) {
@@ -149,15 +150,15 @@ textInput.addEventListener("input", function() {
 //       var parkName = park.name; // Use 'park' instead of 'parks[j]'
 //       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
 //       //console.log("This park is called " + parkName + ". Their park ID is " + parkId);
-      
+
 //     });
 //     //console.log(parkId)  
-    
+
 //    }
 //   })
 
 
-    
+
 // fetch(universalOrlando)
 //   .then(function (response) {
 //     return response.json();
@@ -175,13 +176,13 @@ textInput.addEventListener("input", function() {
 //         var rideName = rides[j].name;
 //         //console.log(rideName);
 
-        
+
 //         var waitTime = rides[j].wait_time;
 //         //console.log("Wait Time:", waitTime);
 
 //         var isOpen = rides[j].is_open;
 //         //console.log("Is Open:", isOpen);
-        
+
 //         if (isOpen === true) {
 //           console.log("This ride is open: " + isOpen)
 //         // var para = document.createElement('p');
@@ -190,7 +191,7 @@ textInput.addEventListener("input", function() {
 //         // mainDiv.append(para)
 //         }
 //       }
-     
+
 //     }
 //   });
 
@@ -298,15 +299,15 @@ textInput.addEventListener("input", function() {
 //       var parkName = park.name; // Use 'park' instead of 'parks[j]'
 //       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
 //       console.log("This park is called " + parkName + ". Their park ID is " + parkId);
-      
+
 //     });
 //     console.log(parkId)  
-    
+
 //    }
 //   })
 
 
-    
+
 // fetch(universalOrlando)
 //   .then(function (response) {
 //     return response.json();
@@ -324,13 +325,13 @@ textInput.addEventListener("input", function() {
 //         var rideName = rides[j].name;
 //         //console.log(rideName);
 
-        
+
 //         var waitTime = rides[j].wait_time;
 //         //console.log("Wait Time:", waitTime);
 
 //         var isOpen = rides[j].is_open;
 //         //console.log("Is Open:", isOpen);
-        
+
 //         if (isOpen === true) {
 //         var para = document.createElement('p');
 //         para.textContent = landName + " is the home of " + rideName  + 
@@ -338,7 +339,7 @@ textInput.addEventListener("input", function() {
 //         mainDiv.append(para)
 //         }
 //       }
-     
+
 //     }
 //   });
 
