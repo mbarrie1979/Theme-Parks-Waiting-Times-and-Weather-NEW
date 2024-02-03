@@ -2,9 +2,9 @@
 
 
 
-var parkId = 65
+var parkId;
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
+
 // var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
 // var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
 // var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
@@ -32,18 +32,18 @@ function fetchThemePark() {
     method: 'GET',
     success: function (data) {
       var companyData = data;
-      console.log(companyData)
+      console.log(parkObjects)
       for (var i = 0; i < companyData.length; i++) {
         var parks = companyData[i].parks;
         parks.forEach(function (park) {
           parksList.push(park.name);
-          parkObjects.push({ name: park.name, id: park.id })
+          parkObjects.push({ name: park.name, id: park.id, latitude: park.latitude, longitude: park.longitude })
         });
         parksList.sort();
         loadData(parksList, parkListElement);
 
       }
-      console.log(parksList)
+      // console.log(parksList)
     },
     error: function (xhr, status, error) {
       console.error("Error fetching data: ", error);
@@ -58,21 +58,25 @@ function fetchThemePark() {
 function loadData(data, element) {
   var innerElement = "";
   data.forEach(function (park) {
-    // Assuming parkObjects contains objects with name and id
-    const parkObj = parkObjects.find(p => p.name === park);
+    // Assuming parkObjects contains objects with name, id, latitude, and longitude
+    var parkObj = parkObjects.find(p => p.name === park);
     if (parkObj) {
-      innerElement += `<li data-parkid="${parkObj.id}">${park}</li>`;
+      // Append <li> with data attributes for park id, latitude, and longitude
+      innerElement += `<li data-parkid="${parkObj.id}" data-lat="${parkObj.latitude}" data-lon="${parkObj.longitude}">${park}</li>`;
     }
   });
   $(element).html(innerElement);
 };
 
+
 // Attach click event listener to the parent ul element and use event delegation
 $('#theme-park-list').on('click', 'li', function () {
   console.log($(this).text());
-  var parkId = $(this).data('parkid'); // This retrieves the data-parkid attribute value
-  console.log(parkId); // Now parkId holds the id of the clicked park
-  getWaitTimes(parkId);
+  parkId = $(this).data('parkid'); // This retrieves the data-parkid attribute value
+  lat = $(this).data('lat'); // This retrieves the data-parkid attribute value
+  lon = $(this).data('lon'); // This retrieves the data-parkid attribute value
+  getWaitTimes();
+  getWeather();
 });
 
 
@@ -106,26 +110,31 @@ $(textInput).on('input', function () {
 
 
 
-function getWaitTimes(parkId) {
-
+function getWaitTimes() {
+  var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
   $.ajax({
     url: parkInfoAPI,
     method: "GET",
-    success: function(data) {
-      console.log(data);
+    success: function (data) {
+      // console.log(data);
       var lands = data.lands;
 
-      lands.forEach(function(land) {
-        var rides = land.rides;
-
-        rides.forEach(function(ride) {
-          console.log(ride.name);
-          console.log("Wait Time:", ride.wait_time);
-          console.log("Is Open:", ride.is_open);
-        });
+      var rideInfo = lands.flatMap(function (land) {
+        return land.rides.map(function (ride) {
+          return {
+            ride: ride.name,
+            wait_time: ride.wait_time,
+            open: ride.is_open
+          }
+        })
       });
+      console.log(rideInfo);
+      rideInfo.forEach(function(ride){
+        console.log(ride);
+      })
+
     },
-    error: function(xhr, status, error) {
+    error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
@@ -385,13 +394,20 @@ function getWaitTimes(parkId) {
 
 //AJAX call requires a third party library, jQuery
 var city = 'Orlando';
+var lat;
+var lon;
+// console.log(`latitude = ${lat},longitude = ${lon}`);
 var weatherAPIKey = 'f5ae2638dc599c5d3619396cd657ae93';
-var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPIKey + '&units=imperial'
+// var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPIKey + '&units=imperial'
+// lat={lat}&lon={lon}
 var weather = {};
 
 
 
 // rewuest for openWeather API
+function getWeather() {
+console.log(`latitude = ${lat},longitude = ${lon}`);
+  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
 $.ajax({
   url: requestWeatherUrl,
   method: 'GET',
@@ -404,3 +420,4 @@ $.ajax({
   weather.humidity = response.main.humidity;
   console.log(weather)
 });;
+}
