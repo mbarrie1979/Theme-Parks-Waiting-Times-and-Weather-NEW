@@ -421,3 +421,28 @@ $.ajax({
   console.log(weather)
 });;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Erics code //
+
+$("#text-input").Click(function(){
+  $("#box1").addClass("display-show").SlideDown(3000)
+})
