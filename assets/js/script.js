@@ -420,4 +420,54 @@ $.ajax({
   weather.humidity = response.main.humidity;
   console.log(weather)
 });;
+<<<<<<< Updated upstream
 }
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Erics code //
+
+$("#input-box").click(function(){
+$("#main").addClass("show").slideDown(3000);
+$("#parkName").addClass("showBox").slideDown(2000);
+$("#weatherName").addClass("showBox").slideDown(2000);
+})
+
+
+ 
+>>>>>>> Stashed changes
