@@ -120,13 +120,6 @@ body {
 }
 
 
-
-.width{
-    width:60rem;
-}
-
-
-
 .width{
     width:55rem;
 }
@@ -138,6 +131,7 @@ body {
 #text-input:hover{
     box-shadow:0px 0px 5px black;
     border-color: rgb(0, 255, 17);
+
 }
 
 #container {
@@ -146,13 +140,16 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    display: none;
 }
 
 .display-show {
     display: block;
 }
 
+
+.navbar{
+    margin-bottom: 20px;
+}
 
 
 
@@ -162,10 +159,12 @@ body {
 cursor: pointer;
 }
 
-#cover{
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 }
+=======
+>>>>>>> main
 #myH1{
     background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
     background-clip:text;
@@ -204,9 +203,7 @@ cursor: pointer;
 cursor: pointer;
 }
 
- #cover{
-    transition: all 0.3s ease-in-out;
- }
+
 #myH1{
     background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
     background-clip:text;
@@ -217,8 +214,8 @@ cursor: pointer;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     animation:fadeIn 3s,slide 3.7s, bge 5s infinite alternate;
     
-}
 
+}
 
 
 #flex{
@@ -259,8 +256,15 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
     flex-basis: center;
+<<<<<<< HEAD
 <<<<<<< Updated upstream
    
+=======
+}
+
+#group img{
+    width:10px;
+>>>>>>> main
 }
 =======
 }
@@ -287,9 +291,8 @@ cursor: pointer;
 
 }
 
-.showBox{
-    display:block;
-}
+
+
 
 
 @keyframes bge{
@@ -298,6 +301,9 @@ cursor: pointer;
 }
 
 @keyframes slide{
+
+    0%{transform: translateX(90%);}
+
     0%{transform: translatex(30rem);}
 }
 @keyframes fadeIn{

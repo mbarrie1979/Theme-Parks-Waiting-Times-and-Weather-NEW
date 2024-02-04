@@ -426,6 +426,18 @@ var weather = {};
 function getWeather() {
   console.log(`latitude = ${lat},longitude = ${lon}`);
   var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
+$.ajax({
+  url: requestWeatherUrl,
+  method: 'GET',
+}).then(function (response) {
+  // console.log(response);
+  weather.temp = response.main.temp
+  weather.feels_like = response.main.feels_like
+  weather.description = response.weather[0].description
+  weather.wind_speed = response.wind.speed;
+  weather.humidity = response.main.humidity;
+  console.log(weather)
+});;
   $.ajax({
     url: requestWeatherUrl,
     method: 'GET',
@@ -459,41 +471,6 @@ function getWeather() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Erics code //
 
 $("#input-box").click(function () {
@@ -501,9 +478,6 @@ $("#input-box").click(function () {
   $("#parkName").addClass("showBox").slideDown(2000);
   $("#weatherName").addClass("showBox").slideDown(2000);
 })
-
-
-
 
 
 $("#btn").click(function () {
@@ -515,10 +489,5 @@ $("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px",
 $("#closebtn").click(function () {
   $("#dialog").fadeOut(1000);
 })
-
-
-
-
-
 
 
