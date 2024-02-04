@@ -152,6 +152,8 @@ function getWaitTimes() {
         })
       }
 
+
+
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
