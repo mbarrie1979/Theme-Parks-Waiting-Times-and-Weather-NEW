@@ -1,6 +1,23 @@
 /* Brian code here don't forget GIT STATUS */
+body {
+    background: rgba(0, 0, 0, 0.7) url(../Videos/Loop_Animation_Theme_park.gif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+}
 
+.info-color {
+    background-image:linear-gradient(45deg,#7A7DE9,#CA919C,#48B5A5);
+    background-size:500%;
+    animation: bge 5s infinite alternate;
+}
 
+@keyframes bge{
+    0%{background-position: left;}
+    50%{background-position: right;}
+}
 
 
 
@@ -110,21 +127,6 @@
     height: 300vh;
 }
 
-body {
-    background: rgba(0, 0, 0, 0.7) url(../images/bg-img.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-blend-mode: darken;
-}
-
-
-
-.width{
-    width:60rem;
-}
-
 
 
 .width{
@@ -172,23 +174,6 @@ body {
 cursor: pointer;
 }
 
-#cover{
-
-}
-#myH1{
-    background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
-    background-clip:text;
-    color:transparent;
-    font-size: 30px;
-    font-weight:bold;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    animation:slide 3.7s;
-
-}
-
-
-
-
 #flex{
     display:flex;
     flex-wrap: nowrap;
@@ -211,28 +196,10 @@ cursor: pointer;
 
 
 
- #mynav{
-    margin-bottom: 20px;
-}
-
-
-
-#main{
-   display:none; 
-   
-}
-
-.show{
-    display:block;
-}
-
 #theme-park-list:hover{
 cursor: pointer;
 }
 
- #cover{
-    transition: all 0.3s ease-in-out;
- }
 #myH1{
     background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
     background-clip:text;
@@ -273,10 +240,6 @@ cursor: pointer;
     margin:10px;
     display: none;
 
-}
-
-.showBox{
-    display:block;
 }
 
 #group{
