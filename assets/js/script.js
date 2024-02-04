@@ -136,6 +136,13 @@ function getWaitTimes() {
           }
         })
       });
+
+      console.log(rideInfo);
+      rideInfo.forEach(function (ride) {
+        console.log(ride);
+      })
+
+
       // checks if API returns ride info based on ID
       if (rideInfo.length === 0) {
         console.log("Ride information is not available for this park")
@@ -144,6 +151,7 @@ function getWaitTimes() {
           console.log(ride);
         })
       }
+
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
@@ -430,5 +438,89 @@ function getWeather() {
     weather.wind_speed = response.wind.speed;
     weather.humidity = response.main.humidity;
     console.log(weather)
+
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Erics code //
+
+$("#input-box").click(function () {
+  $("#main").addClass("show").slideDown(3000);
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
+})
+
+
+
+
+
+$("#btn").click(function () {
+  $("#dialog").slideDown().show();
+})
+
+$("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px", "background": "linear-gradient(45deg,lightblue,lightgreen)", "color": "black", "font-size": "20px", "font-family": "system-ui", "font-weight": "bold" })
+
+$("#closebtn").click(function () {
+  $("#dialog").fadeOut(1000);
+})
+
+
+
+
+
   });;
 }
+
