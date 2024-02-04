@@ -129,7 +129,7 @@ function getWaitTimes() {
         })
       });
       console.log(rideInfo);
-      rideInfo.forEach(function(ride){
+      rideInfo.forEach(function (ride) {
         console.log(ride);
       })
 
@@ -406,23 +406,38 @@ var weather = {};
 
 // rewuest for openWeather API
 function getWeather() {
-console.log(`latitude = ${lat},longitude = ${lon}`);
+  console.log(`latitude = ${lat},longitude = ${lon}`);
   var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
-$.ajax({
-  url: requestWeatherUrl,
-  method: 'GET',
-}).then(function (response) {
-  // console.log(response);
-  weather.temp = response.main.temp
-  weather.feels_like = response.main.feels_like
-  weather.description = response.weather[0].description
-  weather.wind_speed = response.wind.speed;
-  weather.humidity = response.main.humidity;
-  console.log(weather)
-});;
-<<<<<<< Updated upstream
+  $.ajax({
+    url: requestWeatherUrl,
+    method: 'GET',
+  }).then(function (response) {
+    // console.log(response);
+    weather.temp = response.main.temp
+    weather.feels_like = response.main.feels_like
+    weather.description = response.weather[0].description
+    weather.wind_speed = response.wind.speed;
+    weather.humidity = response.main.humidity;
+    console.log(weather)
+  });
 }
-=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -462,12 +477,26 @@ $.ajax({
 
 // Erics code //
 
-$("#input-box").click(function(){
-$("#main").addClass("show").slideDown(3000);
-$("#parkName").addClass("showBox").slideDown(2000);
-$("#weatherName").addClass("showBox").slideDown(2000);
+$("#input-box").click(function () {
+  $("#main").addClass("show").slideDown(3000);
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
 })
 
 
- 
->>>>>>> Stashed changes
+
+
+
+$("#btn").click(function () {
+  $("#dialog").slideDown().show();
+})
+
+$("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px", "background": "linear-gradient(45deg,lightblue,lightgreen)", "color": "black", "font-size": "20px", "font-family": "system-ui", "font-weight": "bold" })
+
+$("#closebtn").click(function () {
+  $("#dialog").fadeOut(1000);
+})
+
+
+
+
