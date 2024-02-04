@@ -32,11 +32,13 @@ function fetchThemePark() {
     method: 'GET',
     success: function (data) {
       var companyData = data;
-      console.log(parkObjects)
+      // console.log(parkObjects)
       for (var i = 0; i < companyData.length; i++) {
         var parks = companyData[i].parks;
         parks.forEach(function (park) {
+          // parksList array for autocomplete function
           parksList.push(park.name);
+          // parkObjects to write data to li and then parse to variables for further data fetching
           parkObjects.push({ name: park.name, id: park.id, latitude: park.latitude, longitude: park.longitude })
         });
         parksList.sort();
@@ -72,11 +74,17 @@ function loadData(data, element) {
 // Attach click event listener to the parent ul element and use event delegation
 $('#theme-park-list').on('click', 'li', function () {
   console.log($(this).text());
-  parkId = $(this).data('parkid'); // This retrieves the data-parkid attribute value
-  lat = $(this).data('lat'); // This retrieves the data-parkid attribute value
-  lon = $(this).data('lon'); // This retrieves the data-parkid attribute value
+  // retrieves data attributes and writes to variables
+  parkId = $(this).data('parkid');
+  lat = $(this).data('lat');
+  lon = $(this).data('lon');
+  // runs fuctions with affiliated variables
   getWaitTimes();
   getWeather();
+  // places selected park completed name in text box
+  textInput.value = $(this).text();
+  // clears the list once selected
+  parkListElement.innerHTML = "";
 });
 
 
@@ -128,10 +136,21 @@ function getWaitTimes() {
           }
         })
       });
+
       console.log(rideInfo);
-      rideInfo.forEach(function(ride){
+      rideInfo.forEach(function (ride) {
         console.log(ride);
       })
+
+
+      // checks if API returns ride info based on ID
+      if (rideInfo.length === 0) {
+        console.log("Ride information is not available for this park")
+      } else {
+        rideInfo.forEach(function (ride) {
+          console.log(ride);
+        })
+      }
 
     },
     error: function (xhr, status, error) {
@@ -406,7 +425,7 @@ var weather = {};
 
 // rewuest for openWeather API
 function getWeather() {
-console.log(`latitude = ${lat},longitude = ${lon}`);
+  console.log(`latitude = ${lat},longitude = ${lon}`);
   var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
 $.ajax({
   url: requestWeatherUrl,
@@ -420,8 +439,20 @@ $.ajax({
   weather.humidity = response.main.humidity;
   console.log(weather)
 });;
-}
+  $.ajax({
+    url: requestWeatherUrl,
+    method: 'GET',
+  }).then(function (response) {
+    // console.log(response);
+    weather.temp = response.main.temp
+    weather.feels_like = response.main.feels_like
+    weather.description = response.weather[0].description
+    weather.wind_speed = response.wind.speed;
+    weather.humidity = response.main.humidity;
+    console.log(weather)
 
+  });
+}
 
 
 
@@ -443,6 +474,24 @@ $.ajax({
 
 // Erics code //
 
-$("#text-input").Click(function(){
-  $("#box1").addClass("display-show").SlideDown(3000)
+$("#input-box").click(function () {
+  $("#main").addClass("show").slideDown(3000);
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
 })
+
+
+
+
+
+$("#btn").click(function () {
+  $("#dialog").slideDown().show();
+})
+
+$("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px", "background": "linear-gradient(45deg,lightblue,lightgreen)", "color": "black", "font-size": "20px", "font-family": "system-ui", "font-weight": "bold" })
+
+$("#closebtn").click(function () {
+  $("#dialog").fadeOut(1000);
+})
+
+

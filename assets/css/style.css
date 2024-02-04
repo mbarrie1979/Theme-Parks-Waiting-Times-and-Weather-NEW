@@ -107,7 +107,7 @@
 }
 
 #box {
-    height: 100vh;
+    height: 300vh;
 }
 
 body {
@@ -119,8 +119,19 @@ body {
     background-blend-mode: darken;
 }
 
-.width {
-    width: 50rem;
+
+.width{
+    width:55rem;
+}
+
+#text-input{
+    background: radial-gradient(white,rgb(208, 205, 205));
+    transition: all 0.3s ease-in-out;
+}
+#text-input:hover{
+    box-shadow:0px 0px 5px black;
+    border-color: rgb(0, 255, 17);
+
 }
 
 #container {
@@ -136,45 +147,165 @@ body {
 }
 
 
-#box1,
-#box2 {
-    box-shadow: 0px 0px 10px white;
-    width: 25rem;
-    height: 25rem;
-    margin: 20px;
-    color: white;
-    background-image: linear-gradient(45deg, rgb(5, 3, 14), rgb(6, 30, 35));
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 15px;
-    /* display:none; */
-    opacity: 90%;
-}
-
 .navbar{
     margin-bottom: 20px;
 }
 
-#cover{
-    background-image: linear-gradient(45deg,lightblue,rgb(224, 92, 92));
-    background-size: 500%;
-    border-radius:20px;
-    padding:10px;
-    font-size:30px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    animation: bge 10s infinite alternate, slide 2s;
+
+#box{
+    height:300vh;
+}
+ #mynav{
+    margin-bottom: 20px;
 }
 
-#myH1{
-    background-image: linear-gradient(45deg,rgb(76, 223, 199),orange,red);
-    background-size: 500%;
-    background-clip: text;
-    color:transparent;
-    animation: bge 5s infinite alternate, slide 3.7s;
+
+
+#main{
+   display:none; 
+   
 }
+
+.show{
+    display:block;
+}
+
+#theme-park-list:hover{
+cursor: pointer;
+}
+
+
+#myH1{
+    background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
+    background-clip:text;
+    color:transparent;
+    font-size: 30px;
+    font-weight:bold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    animation:slide 3.7s;
+
+}
+
+
+
+
+#flex{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.same{
+    width:25rem;
+    height:25rem;
+    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
+    text-align: center;
+    color:rgb(2, 2, 2);
+    font-size:20px;
+    border-radius: 20px;
+    overflow: scroll;
+    font-weight: bolder;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+
+ #mynav{
+    margin-bottom: 20px;
+}
+
+
+
+#main{
+   display:none; 
+   
+}
+
+.show{
+    display:block;
+}
+
+#theme-park-list:hover{
+cursor: pointer;
+}
+
+
+#myH1{
+    background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
+    background-clip:text;
+    background-size: 300%;
+    color:transparent;
+    font-size: 35px;
+    font-weight:bold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    animation:fadeIn 3s,slide 3.7s, bge 5s infinite alternate;
+    
+
+}
+
+
+#flex{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.same{
+    width:25rem;
+    height:25rem;
+    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
+    text-align: center;
+    color:rgb(2, 2, 2);
+    font-size:20px;
+    border-radius: 20px;
+    overflow: scroll;
+    font-weight: bolder;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+
+#parkName, #weatherName{
+    margin:10px;
+    display: none;
+
+}
+
+.showBox{
+    display:block;
+}
+
+#group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-basis: center;
+   
+}
+
+.fade{
+    transition: all 0.4s ease-in-out;
+}
+.fade:hover{
+    box-shadow: 0px 0px 10px rgb(246, 246, 246);
+}
+#btn{
+    width:8rem;
+    font-size: 20px;
+}
+
+#closebtn{
+    padding:10px;
+    border-radius: 5px;
+    font-size:15px;
+    font-weight: bold;
+
+}
+
+
 
 
 
@@ -184,5 +315,12 @@ body {
 }
 
 @keyframes slide{
+
     0%{transform: translateX(90%);}
+
+    0%{transform: translatex(30rem);}
+}
+@keyframes fadeIn{
+    0%{opacity: 0%;}
+    100%{opacity: 100%;}
 }
