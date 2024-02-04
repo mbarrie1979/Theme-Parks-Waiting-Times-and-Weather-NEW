@@ -521,6 +521,5 @@ $("#closebtn").click(function () {
 
 
 
-  });;
-}
+
 
