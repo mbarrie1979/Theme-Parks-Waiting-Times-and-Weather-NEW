@@ -481,9 +481,6 @@ $("#input-box").click(function () {
 })
 
 
-
-
-
 $("#btn").click(function () {
   $("#dialog").slideDown().show();
 })

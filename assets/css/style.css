@@ -283,7 +283,10 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
     flex-basis: center;
-   
+}
+
+#group img{
+    width:10px;
 }
 
 .fade{
