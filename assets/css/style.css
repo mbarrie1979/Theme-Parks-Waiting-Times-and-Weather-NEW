@@ -155,23 +155,8 @@ body {
 
 
 
-#box{
-    height:300vh;
-}
- #mynav{
-    margin-bottom: 20px;
-}
 
 
-
-#main{
-   display:none; 
-   
-}
-
-.show{
-    display:block;
-}
 
 #theme-park-list:hover{
 cursor: pointer;
@@ -179,6 +164,7 @@ cursor: pointer;
 
 #cover{
 
+<<<<<<< Updated upstream
 }
 #myH1{
     background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
@@ -191,6 +177,8 @@ cursor: pointer;
 
 }
 
+=======
+>>>>>>> Stashed changes
 
 
 
@@ -199,25 +187,6 @@ cursor: pointer;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-}
-
-.same{
-    width:25rem;
-    height:25rem;
-    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
-    text-align: center;
-    color:rgb(2, 2, 2);
-    font-size:20px;
-    border-radius: 20px;
-    overflow: scroll;
-    font-weight: bolder;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-
-
- #mynav{
-    margin-bottom: 20px;
 }
 
 
@@ -290,8 +259,14 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
     flex-basis: center;
+<<<<<<< Updated upstream
    
 }
+=======
+}
+
+
+>>>>>>> Stashed changes
 
 .fade{
     transition: all 0.4s ease-in-out;
