@@ -151,6 +151,12 @@ function getWaitTimes() {
           console.log(ride);
         })
       }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> main
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);

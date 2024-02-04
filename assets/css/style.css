@@ -146,12 +146,24 @@ body {
     display: block;
 }
 
+<<<<<<< HEAD
 
 .navbar{
     margin-bottom: 20px;
 }
 
 
+<<<<<<< HEAD
+=======
+#box{
+    height:300vh;
+}
+=======
+>>>>>>> bb2b019f3bddd1a66da0d6c1c46fb98705a3f2d9
+ #mynav{
+    margin-bottom: 20px;
+}
+>>>>>>> main
 
 
 
