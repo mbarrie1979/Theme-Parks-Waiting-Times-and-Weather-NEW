@@ -1,6 +1,23 @@
 /* Brian code here don't forget GIT STATUS */
+body {
+    background: rgba(0, 0, 0, 0.7) url(../Videos/Loop_Animation_Theme_park.gif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+}
 
+.info-color {
+    background-image:linear-gradient(45deg,#7A7DE9,#CA919C,#48B5A5);
+    background-size:500%;
+    animation: bge 5s infinite alternate;
+}
 
+@keyframes bge{
+    0%{background-position: left;}
+    50%{background-position: right;}
+}
 
 
 
@@ -110,6 +127,7 @@
     height: 300vh;
 }
 
+
 body {
     background: rgba(0, 0, 0, 0.7) url(../images/bg-img.jpg);
     background-size: cover;
@@ -118,6 +136,7 @@ body {
     background-attachment: fixed;
     background-blend-mode: darken;
 }
+
 
 
 .width{
@@ -146,30 +165,22 @@ body {
     display: block;
 }
 
-<<<<<<< HEAD
+
 
 .navbar{
     margin-bottom: 20px;
 }
 
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
+
 #box{
     height:300vh;
 }
-=======
->>>>>>> bb2b019f3bddd1a66da0d6c1c46fb98705a3f2d9
+
  #mynav{
     margin-bottom: 20px;
 }
->>>>>>> main
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 
 
 
@@ -178,13 +189,7 @@ cursor: pointer;
 }
 
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-}
-=======
->>>>>>> main
+
 #myH1{
     background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
     background-clip:text;
@@ -196,14 +201,6 @@ cursor: pointer;
 
 }
 
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
-
 
 #flex{
     display:flex;
@@ -211,6 +208,22 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
 }
+
+
+.same{
+    width:25rem;
+    height:25rem;
+    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
+    text-align: center;
+    color:rgb(2, 2, 2);
+    font-size:20px;
+    border-radius: 20px;
+    overflow: scroll;
+    font-weight: bolder;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
 
 
 
@@ -222,6 +235,7 @@ cursor: pointer;
 .show{
     display:block;
 }
+
 
 #theme-park-list:hover{
 cursor: pointer;
@@ -270,39 +284,29 @@ cursor: pointer;
 
 }
 
-.showBox{
-    display:block;
-}
-
 #group{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     flex-basis: center;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-   
-=======
+
 }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 #group img{
     width:10px;
->>>>>>> main
-}
-=======
+
 }
 
+}
 
->>>>>>> Stashed changes
-=======
 
->>>>>>> Stashed changes
-=======
 
->>>>>>> Stashed changes
+
+
+
+
 
 .fade{
     transition: all 0.4s ease-in-out;
