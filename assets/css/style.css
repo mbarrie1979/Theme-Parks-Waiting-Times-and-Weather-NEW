@@ -120,13 +120,6 @@ body {
 }
 
 
-
-.width{
-    width:60rem;
-}
-
-
-
 .width{
     width:55rem;
 }
@@ -138,6 +131,7 @@ body {
 #text-input:hover{
     box-shadow:0px 0px 5px black;
     border-color: rgb(0, 255, 17);
+
 }
 
 #container {
@@ -146,35 +140,51 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    display: none;
 }
 
 .display-show {
     display: block;
 }
 
- #mynav{
+<<<<<<< HEAD
+
+.navbar{
     margin-bottom: 20px;
 }
 
 
-
-#main{
-   display:none; 
-   
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+=======
+#box{
+    height:300vh;
 }
-
-.show{
-    display:block;
+=======
+>>>>>>> bb2b019f3bddd1a66da0d6c1c46fb98705a3f2d9
+ #mynav{
+    margin-bottom: 20px;
 }
+>>>>>>> main
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+
+
 
 #theme-park-list:hover{
 cursor: pointer;
 }
 
-#cover{
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+<<<<<<< Updated upstream
 }
+=======
+>>>>>>> main
 #myH1{
     background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
     background-clip:text;
@@ -186,6 +196,12 @@ cursor: pointer;
 
 }
 
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 
 
@@ -194,25 +210,6 @@ cursor: pointer;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-}
-
-.same{
-    width:25rem;
-    height:25rem;
-    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
-    text-align: center;
-    color:rgb(2, 2, 2);
-    font-size:20px;
-    border-radius: 20px;
-    overflow: scroll;
-    font-weight: bolder;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-
-
- #mynav{
-    margin-bottom: 20px;
 }
 
 
@@ -230,9 +227,7 @@ cursor: pointer;
 cursor: pointer;
 }
 
- #cover{
-    transition: all 0.3s ease-in-out;
- }
+
 #myH1{
     background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
     background-clip:text;
@@ -243,8 +238,8 @@ cursor: pointer;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     animation:fadeIn 3s,slide 3.7s, bge 5s infinite alternate;
     
-}
 
+}
 
 
 #flex{
@@ -285,8 +280,29 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
     flex-basis: center;
+<<<<<<< HEAD
+<<<<<<< Updated upstream
    
+=======
 }
+
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+#group img{
+    width:10px;
+>>>>>>> main
+}
+=======
+}
+
+
+>>>>>>> Stashed changes
+=======
+
+>>>>>>> Stashed changes
+=======
+
+>>>>>>> Stashed changes
 
 .fade{
     transition: all 0.4s ease-in-out;
@@ -307,9 +323,8 @@ cursor: pointer;
 
 }
 
-.showBox{
-    display:block;
-}
+
+
 
 
 @keyframes bge{
@@ -318,6 +333,9 @@ cursor: pointer;
 }
 
 @keyframes slide{
+
+    0%{transform: translateX(90%);}
+
     0%{transform: translatex(30rem);}
 }
 @keyframes fadeIn{
