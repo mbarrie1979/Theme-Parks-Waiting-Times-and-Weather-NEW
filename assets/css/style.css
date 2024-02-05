@@ -1,6 +1,23 @@
 /* Brian code here don't forget GIT STATUS */
+body {
+    background: rgba(0, 0, 0, 0.7) url(../Videos/Loop_Animation_Theme_park.gif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+}
 
+.info-color {
+    background-image:linear-gradient(45deg,#7A7DE9,#CA919C,#48B5A5);
+    background-size:500%;
+    animation: bge 5s infinite alternate;
+}
 
+@keyframes bge{
+    0%{background-position: left;}
+    50%{background-position: right;}
+}
 
 
 
@@ -110,6 +127,7 @@
     height: 300vh;
 }
 
+
 body {
     background: rgba(0, 0, 0, 0.7) url(../images/bg-img.jpg);
     background-size: cover;
@@ -117,12 +135,6 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-blend-mode: darken;
-}
-
-
-
-.width{
-    width:60rem;
 }
 
 
@@ -138,6 +150,7 @@ body {
 #text-input:hover{
     box-shadow:0px 0px 5px black;
     border-color: rgb(0, 255, 17);
+
 }
 
 #container {
@@ -146,11 +159,22 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    display: none;
 }
 
 .display-show {
     display: block;
+}
+
+
+
+.navbar{
+    margin-bottom: 20px;
+}
+
+
+
+#box{
+    height:300vh;
 }
 
  #mynav{
@@ -159,22 +183,13 @@ body {
 
 
 
-#main{
-   display:none; 
-   
-}
-
-.show{
-    display:block;
-}
 
 #theme-park-list:hover{
 cursor: pointer;
 }
 
-#cover{
 
-}
+
 #myH1{
     background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
     background-clip:text;
@@ -187,14 +202,13 @@ cursor: pointer;
 }
 
 
-
-
 #flex{
     display:flex;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
 }
+
 
 .same{
     width:25rem;
@@ -211,10 +225,6 @@ cursor: pointer;
 
 
 
- #mynav{
-    margin-bottom: 20px;
-}
-
 
 
 #main{
@@ -226,13 +236,12 @@ cursor: pointer;
     display:block;
 }
 
+
 #theme-park-list:hover{
 cursor: pointer;
 }
 
- #cover{
-    transition: all 0.3s ease-in-out;
- }
+
 #myH1{
     background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
     background-clip:text;
@@ -243,8 +252,8 @@ cursor: pointer;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     animation:fadeIn 3s,slide 3.7s, bge 5s infinite alternate;
     
-}
 
+}
 
 
 #flex{
@@ -275,18 +284,29 @@ cursor: pointer;
 
 }
 
-.showBox{
-    display:block;
-}
-
 #group{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     flex-basis: center;
-   
+
 }
+
+
+#group img{
+    width:10px;
+
+}
+
+}
+
+
+
+
+
+
+
 
 .fade{
     transition: all 0.4s ease-in-out;
@@ -307,9 +327,8 @@ cursor: pointer;
 
 }
 
-.showBox{
-    display:block;
-}
+
+
 
 
 @keyframes bge{
@@ -318,6 +337,9 @@ cursor: pointer;
 }
 
 @keyframes slide{
+
+    0%{transform: translateX(90%);}
+
     0%{transform: translatex(30rem);}
 }
 @keyframes fadeIn{
