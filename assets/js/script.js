@@ -129,28 +129,17 @@ function getWaitTimes() {
 
       $('#parkName').empty();
 
-      //console.log(rideInfo);
-      
-      rideInfo.forEach(function (ride) {
-        console.log(ride);
-        var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
-        $('#parkName').append(rideElement);
-      });
-
-      $('#parkName').addClass('showBox').slideDown(2000);
-
-
       //checks if API returns ride info based on ID
       if (rideInfo.length === 0) {
         console.log("Ride information is not available for this park")
       } else {
         rideInfo.forEach(function (ride) {
           console.log(ride);
+          var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
+          $('#parkName').append(rideElement);
         })
+        $('#parkName').addClass('showBox').slideDown(2000);
       }
-
-
-
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
