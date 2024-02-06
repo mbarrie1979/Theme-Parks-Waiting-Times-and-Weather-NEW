@@ -158,16 +158,49 @@ function getWaitTimes() {
   });
 }
 
+var currentSortMethod = "alphabetical";
+// Function to toggle between alphabetical and by wait time sorting
+// Function to toggle between alphabetical and by wait time sorting
+// Function to toggle between alphabetical and by wait time sorting
+function toggleSort() {
+  // Get the open rides container element
+  const openRidesContainer = $('#parkName');
+
+  // Get all the paragraphs inside the container
+  const openRides = openRidesContainer.find('p');
+
+  // Sort alphabetically or by wait time, keeping closed rides at the bottom
+  const sortedRides = Array.from(openRides).sort((a, b) => {
+    const rideA = a.textContent.toLowerCase();
+    const rideB = b.textContent.toLowerCase();
+
+    // Check the current sorting method
+    if (currentSortMethod === 'alphabetical') {
+      // If sorting alphabetically, move closed rides to the bottom
+      return a.textContent.includes('closed') ? 1 : rideA.localeCompare(rideB);
+    } else {
+      // If sorting by wait time, move closed rides to the bottom based on wait time
+      const timeA = a.textContent.includes('closed') ? Infinity : parseInt(a.textContent.match(/\d+/)[0]);
+      const timeB = b.textContent.includes('closed') ? Infinity : parseInt(b.textContent.match(/\d+/)[0]);
+      return timeA - timeB;
+    }
+  });
+
+  // Clear the container and append the sorted rides
+  openRidesContainer.empty().append(sortedRides);
+
+  // Toggle the sorting method
+  currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
+}
+
+
+ 
 
 
 
-// if (isOpen === true) {
-// console.log("This ride is open: " + isOpen)
-// var para = document.createElement('p');
-// para.textContent = landName + " is the home of " + rideName  + 
-// ", which currently has a wait time of " + waitTime  + " minutes." 
-// mainDiv.append(para)
-// }
+$('#toggle').on('click', toggleSort)
+
+
 
 
 
