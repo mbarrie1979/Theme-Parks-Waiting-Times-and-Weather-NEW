@@ -37,6 +37,25 @@ THEN I am presented with a button to sort rides by alphabetical order for wait t
 
 
 ```
+
 ## Description
 The purpose of this web application is to help people search theme park rides and their wait times, along with weather affiliated with that area.
+
+
+
+## APIs Used
+
+
+[Theme-Park-Wait-Times-API](https://queue-times.com/en-US/pages/api)
+[Open-Weather-API](https://openweathermap.org/api)
+
+
+## CSS Framework
+[Bulma](https://bulma.io/)
+
+
+
+## Screenshots
+
+- ![Screenshot 1](./assets/readme_screenshots/Mock_Up_1.jpg)
 

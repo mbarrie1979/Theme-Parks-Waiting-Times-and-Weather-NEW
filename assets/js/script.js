@@ -2,423 +2,167 @@
 
 
 
-
+var parkId;
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-// var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
-// var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
-// var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
-// var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
-// var univeralVolcanoBay = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/67/queue_times.json')
-// var disneyMagicKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/6/queue_times.json')
-// var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
-// var disneyHollywoodStudios = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/7/queue_times.json')
-// var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
 
-// parkId is obtained by iterating through apiUrl data and extracting it somehow?
+var dataFetched = false; // Flag to indicate if the data has been fetched
 
 var mainDiv = document.getElementById('main-div');
-let parks = [];
-let parksList = [];
+var parks = [];
+var parksList = [];
+var parkObjects = [];
 var parkListElement = document.querySelector('#theme-park-list')
 var textInput = document.querySelector('#text-input')
 
-// Convert to jquery 
+
 
 function fetchThemePark() {
-
-fetch(apiUrl) 
-  .then(function (response) {
-   return response.json()
-  })
-  .then(function (data) {
-   //console.log(data)
-   var companyData = data;
-   //console.log(companyData)
-   for (var i = 0; i < companyData.length; i++) {
-    var companyName = companyData[i].name
-    var companyId = companyData[i].id
-    //console.log(companyName)
-    //console.log(companyId)
-    //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
-    var parks = companyData[i].parks
-    //console.log(parks)
+  $.ajax({
+    url: apiUrl,
+    method: 'GET',
+    success: function (data) {
+      var companyData = data;
+      console.log(data)
+      for (var i = 0; i < companyData.length; i++) {
+        var parks = companyData[i].parks;
         parks.forEach(function (park) {
+          // parksList array for autocomplete function
           parksList.push(park.name);
-          parksList.sort();
-          loadData(parksList, parkListElement);   
-      //console.log(parkId) 
-      //console.log(parksList)
-    });
-    
-   }
-  })
-}
-//console.log(parksList)
+          // parkObjects to write data to li and then parse to variables for further data fetching
+          parkObjects.push({ name: park.name, id: park.id, latitude: park.latitude, longitude: park.longitude })
+        });
+        parksList.sort();
+        loadData(parksList, parkListElement);
 
+      }
+      // console.log(parksList)
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching data: ", error);
+    }
+  });
+}
+
+
+
+// Load data into the element
+// Update the loadData function to include park id in the li element
 function loadData(data, element) {
-  if (data) {
-    element.innerHTML = "";
-    let innerElement = "";
-    data.forEach((park) => {
-      innerElement += `<li data-parkid="${park.id}">${park}</li>`;
-    });
-    element.innerHTML = innerElement;
-    document.querySelectorAll('#theme-park-list li').forEach((li) => {
-      li.addEventListener('click', function() {
-        console.log(event.target.textContent);
-      });
-    });
-  }
-}
+  var innerElement = "";
+  data.forEach(function (park) {
+    // Assuming parkObjects contains objects with name, id, latitude, and longitude
+    var parkObj = parkObjects.find(p => p.name === park);
+    if (parkObj) {
+      // Append <li> with data attributes for park id, latitude, and longitude
+      innerElement += `<li data-parkid="${parkObj.id}" data-lat="${parkObj.latitude}" data-lon="${parkObj.longitude}">${park}</li>`;
+    }
+  });
+  $(element).html(innerElement);
+};
 
-// function handleParkSelection(event) {
-//    console.log(event.target.textConent);
-// }
 
-function filterData(data, searchText) {
-  return data.filter((x) => x.toLowerCase().includes(searchText.toLowerCase()))
-}
-   
-fetchThemePark()
-
-textInput.addEventListener("input", function() {
-  var filteredParks = filterData(parksList, textInput.value);
-  loadData(filteredParks, parkListElement);
+// Attach click event listener to the parent ul element and use event delegation
+$('#theme-park-list').on('click', 'li', function () {
+  console.log($(this).text());
+  // retrieves data attributes and writes to variables
+  parkId = $(this).data('parkid');
+  lat = $(this).data('lat');
+  lon = $(this).data('lon');
+  // runs fuctions with affiliated variables
+  getWaitTimes();
+  getWeather();
+  // places selected park completed name in text box
+  textInput.value = $(this).text();
+  // clears the list once selected
+  parkListElement.innerHTML = "";
 });
+
+
+
+
+// Filter data based on search text
+function filterData(data, searchText) {
+  return data.filter(function (x) {
+    return x.toLowerCase().includes(searchText.toLowerCase());
+  });
+}
+
+// Add event listener using jQuery
+$(textInput).on('input', function () {
+  if (!dataFetched && $(this).val().length > 0) {
+    fetchThemePark(); // Fetch data when input is detected and data has not been fetched
+    dataFetched = true; // Update the flag
+  }
+
+  if ($(this).val().length > 0) {
+    var filteredParks = filterData(parksList, $(this).val());
+    loadData(filteredParks, parkListElement);
+  } else {
+    $(parkListElement).html(''); // Clear the list if there's no input
+  }
+});
+
+
 
 // Code below to pull wait times
 
-// fetch(universalOrlando)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     //console.log(data)
-//     var lands = data.lands;
 
-//     for (var i = 0; i < lands.length; i++) {
-//       var landName = lands[i].name;
-//       //console.log(landName);
 
-//       var rides = lands[i].rides;
-//       for (var j = 0; j < rides.length; j++) {
-//         var rideName = rides[j].name;
-//         //console.log(rideName);
-
-        
-//         var waitTime = rides[j].wait_time;
-//         //console.log("Wait Time:", waitTime);
-
-//         var isOpen = rides[j].is_open;
-//         //console.log("Is Open:", isOpen);
-        
-//         //if (isOpen === true) {
-//         //console.log("This ride is open: " + isOpen)
-//         // var para = document.createElement('p');
-//         // para.textContent = landName + " is the home of " + rideName  + 
-//         // ", which currently has a wait time of " + waitTime  + " minutes." 
-//         // mainDiv.append(para)
-//         //}
-//       }
-     
-//     }
-//   });
-
-
-// ------------------------------------------------------
-
-  // Original code before 2.1.24:
-
-//   fetch(apiUrl) 
-//   .then(function (response) {
-//    return response.json()
-//   })
-//   .then(function (data) {
-//    //console.log(data)
-//    var companyData = data;
-//    //console.log(companyData)
-//    for (var i = 0; i < companyData.length; i++) {
-//     var companyName = companyData[i].name
-//     var companyId = companyData[i].id
-//     //console.log(companyName)
-//     //console.log(companyId)
-//     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
-//     var parks = companyData[i].parks
-//     //console.log(parks)
-//     parks.forEach(function (park) {
-//       var parkName = park.name; // Use 'park' instead of 'parks[j]'
-//       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
-//       //console.log("This park is called " + parkName + ". Their park ID is " + parkId);
-      
-//     });
-//     //console.log(parkId)  
-    
-//    }
-//   })
-
-
-    
-// fetch(universalOrlando)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     //console.log(data)
-//     var lands = data.lands;
-
-//     for (var i = 0; i < lands.length; i++) {
-//       var landName = lands[i].name;
-//       //console.log(landName);
-
-//       var rides = lands[i].rides;
-//       for (var j = 0; j < rides.length; j++) {
-//         var rideName = rides[j].name;
-//         //console.log(rideName);
-
-        
-//         var waitTime = rides[j].wait_time;
-//         //console.log("Wait Time:", waitTime);
-
-//         var isOpen = rides[j].is_open;
-//         //console.log("Is Open:", isOpen);
-        
-//         if (isOpen === true) {
-//           console.log("This ride is open: " + isOpen)
-//         // var para = document.createElement('p');
-//         // para.textContent = landName + " is the home of " + rideName  + 
-//         // ", which currently has a wait time of " + waitTime  + " minutes." 
-//         // mainDiv.append(para)
-//         }
-//       }
-     
-//     }
-//   });
-
-
-
-// -----------------------------------------------
-
-// Older code: 
-
-// var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json');
-// var mainDiv = document.getElementById('main-div');
-
-// // Convert to jQuery
-
-// fetch(apiUrl)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     var companyData = data;
-
-//     for (var i = 0; i < companyData.length; i++) {
-//       var parks = companyData[i].parks;
-
-//       parks.forEach(function (park) {
-//         var parkId = park.id;
-//         var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json');
-//         var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
-//         var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
-
-//         fetch(disneyEpcot)
-//           .then(function (response) {
-//             return response.json();
-//           })
-//           .then(function (data) {
-//             var lands = data.lands;
-
-//             for (var j = 0; j < lands.length; j++) {
-//               var landName = lands[j].name;
-//               var rides = lands[j].rides;
-
-//               for (var k = 0; k < rides.length; k++) {
-//                 var rideName = rides[k].name;
-//                 var waitTime = rides[k].wait_time;
-//                 var isOpen = rides[k].is_open;
-
-//                 if (isOpen === true) {
-//                   var para = document.createElement('p');
-//                   para.textContent = landName + " is the home of " + rideName +
-//                     ", which currently has a wait time of " + waitTime + " minutes.";
-//                   mainDiv.append(para);
-//                 }
-//               }
-//             }
-//           });
-//       });
-//     }
-//   });
-
-
-
-
-
-
-
-
-// let parkId = {};
-// var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-// var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
-// var universalOrlando = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/65/queue_times.json')
-// // var univeralHollywood = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/66/queue_times.json')
-// // var univeralJapan = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/284/queue_times.json')
-// // var univeralVolcanoBay = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/67/queue_times.json')
-// // var disneyMagicKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/6/queue_times.json')
-// // var disneyEpcot = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/5/queue_times.json')
-// // var disneyHollywoodStudios = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/7/queue_times.json')
-// // var disneyAnimalKingdom = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/8/queue_times.json')
-
-// // parkId is obtained by iterating through apiUrl data and extracting it somehow???
-
-
-
-
-// var mainDiv = document.getElementById('main-div')
-
-// // Convert to jquery 
-
-// fetch(apiUrl) 
-//   .then(function (response) {
-//    return response.json()
-//   })
-//   .then(function (data) {
-//    //console.log(data)
-//    var companyData = data;
-//    //console.log(companyData)
-//    for (var i = 0; i < companyData.length; i++) {
-//     var companyName = companyData[i].name
-//     var companyId = companyData[i].id
-//     //console.log(companyName)
-//     //console.log(companyId)
-//     //console.log("This company is called " + companyName + ". Their company ID is " + companyId + ".")
-//     var parks = companyData[i].parks
-//     //console.log(parks)
-//     parks.forEach(function (park) {
-//       var parkName = park.name; // Use 'park' instead of 'parks[j]'
-//       var parkId = park.id;     // Use 'park' instead of 'parks[j]'
-//       console.log("This park is called " + parkName + ". Their park ID is " + parkId);
-      
-//     });
-//     console.log(parkId)  
-    
-//    }
-//   })
-
-
-    
-// fetch(universalOrlando)
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log(data)
-//     var lands = data.lands;
-
-//     for (var i = 0; i < lands.length; i++) {
-//       var landName = lands[i].name;
-//       //console.log(landName);
-
-//       var rides = lands[i].rides;
-//       for (var j = 0; j < rides.length; j++) {
-//         var rideName = rides[j].name;
-//         //console.log(rideName);
-
-        
-//         var waitTime = rides[j].wait_time;
-//         //console.log("Wait Time:", waitTime);
-
-//         var isOpen = rides[j].is_open;
-//         //console.log("Is Open:", isOpen);
-        
-//         if (isOpen === true) {
-//         var para = document.createElement('p');
-//         para.textContent = landName + " is the home of " + rideName  + 
-//         ", which currently has a wait time of " + waitTime  + " minutes." 
-//         mainDiv.append(para)
-//         }
-//       }
-     
-//     }
-//   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function getWaitTimes() {
+  var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
+  $.ajax({
+    url: parkInfoAPI,
+    method: "GET",
+    success: function (data) {
+      // console.log(data);
+      var lands = data.lands;
+
+      var rideInfo = lands.flatMap(function (land) {
+        return land.rides.map(function (ride) {
+          return {
+            ride: ride.name,
+            wait_time: ride.wait_time,
+            open: ride.is_open
+          }
+        })
+      });
+
+      $('#parkName').empty();
+
+      //checks if API returns ride info based on ID
+      if (rideInfo.length === 0) {
+        console.log("Ride information is not available for this park")
+      } else {
+        rideInfo.forEach(function (ride) {
+          console.log(ride);
+          var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
+          $('#parkName').append(rideElement);
+        })
+        $('#parkName').addClass('showBox').slideDown(2000);
+      }
+
+    },
+    error: function (xhr, status, error) {
+      console.error("Error:", error);
+    }
+  });
+}
+
+
+
+// if (isOpen === true) {
+// console.log("This ride is open: " + isOpen)
+// var para = document.createElement('p');
+// para.textContent = landName + " is the home of " + rideName  + 
+// ", which currently has a wait time of " + waitTime  + " minutes." 
+// mainDiv.append(para)
+// }
+
+
+
+
+
+ 
 
 
 
@@ -443,22 +187,94 @@ textInput.addEventListener("input", function() {
 
 //AJAX call requires a third party library, jQuery
 var city = 'Orlando';
+var lat;
+var lon;
+// console.log(`latitude = ${lat},longitude = ${lon}`);
 var weatherAPIKey = 'f5ae2638dc599c5d3619396cd657ae93';
-var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPIKey + '&units=imperial'
+// var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPIKey + '&units=imperial'
+// lat={lat}&lon={lon}
 var weather = {};
 
 
 
 // rewuest for openWeather API
-$.ajax({
-  url: requestWeatherUrl,
-  method: 'GET',
-}).then(function (response) {
-  // console.log(response);
-  weather.temp = response.main.temp
-  weather.feels_like = response.main.feels_like
-  weather.description = response.weather[0].description
-  weather.wind_speed = response.wind.speed;
-  weather.humidity = response.main.humidity;
-  console.log(weather)
-});;
+function getWeather() {
+  console.log(`latitude = ${lat}, longitude = ${lon}`);
+  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial';
+
+  $.ajax({
+      url: requestWeatherUrl,
+      method: 'GET',
+      success: function(response) {
+          // Update weather object with the response data
+          weather.temp = Math.round(response.main.temp);
+          weather.feels_like = Math.round(response.main.feels_like);
+          weather.description = response.weather[0].description;
+          weather.wind_speed = response.wind.speed;
+          weather.humidity = response.main.humidity;
+          weather.icon = response.weather[0].icon;
+
+          // Clear previous weather data
+          $('#weatherName').empty();
+
+          // Append new weather data
+          var weatherContent = `
+              <h2>Weather:</h2>
+              <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
+              <p>Temperature: ${weather.temp}°F</p>
+              <p>Feels Like: ${weather.feels_like}°F</p>
+              <p>Condition: ${weather.description}</p>
+              <p>Wind Speed: ${weather.wind_speed} MPH</p>
+              <p>Humidity: ${weather.humidity}%</p>
+          `;
+
+          // Append weather data to the DOM
+          $('#weatherName').html(weatherContent);
+          $('#weatherName').addClass('showBox').slideDown(2000);
+      },
+      error: function(xhr, status, error) {
+          console.error("Error fetching weather:", error);
+          alert("Failed to retrieve weather data. Please try again.");
+      }
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Erics code //
+
+$("#input-box").click(function () {
+  $("#main").addClass("show").slideDown(3000);
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
+})
+
+
+$("#btn").click(function () {
+  $("#dialog").slideDown().show();
+})
+
+$("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px", "background": "linear-gradient(45deg,lightblue,lightgreen)", "color": "black", "font-size": "20px", "font-family": "system-ui", "font-weight": "bold" })
+
+$("#closebtn").click(function () {
+  $("#dialog").fadeOut(1000);
+})
+
+
