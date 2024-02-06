@@ -14,10 +14,7 @@ body {
     animation: bge 5s infinite alternate;
 }
 
-@keyframes bge{
-    0%{background-position: left;}
-    50%{background-position: right;}
-}
+
 
 
 
@@ -123,19 +120,8 @@ body {
     padding: 0px;
 }
 
-#box {
-    height: 300vh;
-}
 
 
-body {
-    background: rgba(0, 0, 0, 0.7) url(../images/bg-img.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-blend-mode: darken;
-}
 
 
 
@@ -184,44 +170,13 @@ body {
 
 
 
-#theme-park-list:hover{
-cursor: pointer;
-}
 
 
 
-#myH1{
-    background-image: linear-gradient(45deg,rgb(232, 227, 95),rgb(239, 191, 81),rgb(147, 238, 235));
-    background-clip:text;
-    color:transparent;
-    font-size: 30px;
-    font-weight:bold;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    animation:slide 3.7s;
-
-}
 
 
-#flex{
-    display:flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-}
 
 
-.same{
-    width:25rem;
-    height:25rem;
-    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
-    text-align: center;
-    color:rgb(2, 2, 2);
-    font-size:20px;
-    border-radius: 20px;
-    overflow: scroll;
-    font-weight: bolder;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
 
 
 
@@ -256,6 +211,7 @@ cursor: pointer;
 }
 
 
+
 #flex{
     display:flex;
     flex-wrap: nowrap;
@@ -275,7 +231,6 @@ cursor: pointer;
     font-weight: bolder;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
 
 
 #parkName, #weatherName{
@@ -299,7 +254,7 @@ cursor: pointer;
 
 }
 
-}
+
 
 
 

@@ -22,7 +22,7 @@ function fetchThemePark() {
     method: 'GET',
     success: function (data) {
       var companyData = data;
-      // console.log(parkObjects)
+      console.log(data)
       for (var i = 0; i < companyData.length; i++) {
         var parks = companyData[i].parks;
         parks.forEach(function (park) {
@@ -199,34 +199,46 @@ var weather = {};
 
 // rewuest for openWeather API
 function getWeather() {
-  console.log(`latitude = ${lat},longitude = ${lon}`);
-  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
-$.ajax({
-  url: requestWeatherUrl,
-  method: 'GET',
-}).then(function (response) {
-  // console.log(response);
-  weather.temp = response.main.temp
-  weather.feels_like = response.main.feels_like
-  weather.description = response.weather[0].description
-  weather.wind_speed = response.wind.speed;
-  weather.humidity = response.main.humidity;
-  console.log(weather)
-});;
-  $.ajax({
-    url: requestWeatherUrl,
-    method: 'GET',
-  }).then(function (response) {
-    // console.log(response);
-    weather.temp = response.main.temp
-    weather.feels_like = response.main.feels_like
-    weather.description = response.weather[0].description
-    weather.wind_speed = response.wind.speed;
-    weather.humidity = response.main.humidity;
-    console.log(weather)
+  console.log(`latitude = ${lat}, longitude = ${lon}`);
+  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial';
 
+  $.ajax({
+      url: requestWeatherUrl,
+      method: 'GET',
+      success: function(response) {
+          // Update weather object with the response data
+          weather.temp = Math.round(response.main.temp);
+          weather.feels_like = Math.round(response.main.feels_like);
+          weather.description = response.weather[0].description;
+          weather.wind_speed = response.wind.speed;
+          weather.humidity = response.main.humidity;
+          weather.icon = response.weather[0].icon;
+
+          // Clear previous weather data
+          $('#weatherName').empty();
+
+          // Append new weather data
+          var weatherContent = `
+              <h2>Weather:</h2>
+              <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
+              <p>Temperature: ${weather.temp}°F</p>
+              <p>Feels Like: ${weather.feels_like}°F</p>
+              <p>Condition: ${weather.description}</p>
+              <p>Wind Speed: ${weather.wind_speed} MPH</p>
+              <p>Humidity: ${weather.humidity}%</p>
+          `;
+
+          // Append weather data to the DOM
+          $('#weatherName').html(weatherContent);
+          $('#weatherName').addClass('showBox').slideDown(2000);
+      },
+      error: function(xhr, status, error) {
+          console.error("Error fetching weather:", error);
+          alert("Failed to retrieve weather data. Please try again.");
+      }
   });
 }
+
 
 
 
