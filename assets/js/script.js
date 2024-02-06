@@ -30,7 +30,7 @@ function fetchThemePark() {
           parksList.push(park.name);
           // parkObjects to write data to li and then parse to variables for further data fetching
           parkObjects.push({ name: park.name, id: park.id, latitude: park.latitude, longitude: park.longitude })
-        });
+        }); 
         parksList.sort();
         loadData(parksList, parkListElement);
 
@@ -114,7 +114,6 @@ function getWaitTimes() {
     url: parkInfoAPI,
     method: "GET",
     success: function (data) {
-      // console.log(data);
       var lands = data.lands;
 
       var rideInfo = lands.flatMap(function (land) {
@@ -123,30 +122,42 @@ function getWaitTimes() {
             ride: ride.name,
             wait_time: ride.wait_time,
             open: ride.is_open
-          }
-        })
+          };
+        });
       });
 
       $('#parkName').empty();
 
-      //checks if API returns ride info based on ID
+      var openRides = rideInfo.filter(ride => ride.open);
+      openRides.sort((a, b) => a.ride.localeCompare(b.ride));
+      var closedRides = rideInfo.filter(ride => !ride.open);
+
+      // Checks if API returns ride info based on ID
       if (rideInfo.length === 0) {
-        console.log("Ride information is not available for this park")
+        var rideElement = $('<p>').text(`Information is currently unavailable for this park.`);
+        $('#parkName').append(rideElement);
       } else {
-        rideInfo.forEach(function (ride) {
-          console.log(ride);
+        // Append open rides first
+        openRides.forEach(function (ride) {
           var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
           $('#parkName').append(rideElement);
-        })
+        });
+
+        // Then append closed rides
+        closedRides.forEach(function (ride) {
+          var rideElement = $('<p>').text(`${ride.ride} is currently closed`);
+          $('#parkName').append(rideElement);
+        });
+
         $('#parkName').addClass('showBox').slideDown(2000);
       }
-
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
 }
+
 
 
 
