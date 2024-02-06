@@ -63,7 +63,7 @@ function loadData(data, element) {
 
 // Attach click event listener to the parent ul element and use event delegation
 $('#theme-park-list').on('click', 'li', function () {
-  console.log($(this).text());
+  // console.log($(this).text());
   // retrieves data attributes and writes to variables
   parkId = $(this).data('parkid');
   lat = $(this).data('lat');
@@ -72,9 +72,13 @@ $('#theme-park-list').on('click', 'li', function () {
   getWaitTimes();
   getWeather();
   // places selected park completed name in text box
-  textInput.value = $(this).text();
+  $('#text-input').val("")
   // clears the list once selected
   parkListElement.innerHTML = "";
+
+  // triggers card animation
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
 });
 
 
@@ -134,7 +138,7 @@ function getWaitTimes() {
         console.log("Ride information is not available for this park")
       } else {
         rideInfo.forEach(function (ride) {
-          console.log(ride);
+          // console.log(ride);
           var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
           $('#parkName').append(rideElement);
         })
@@ -206,6 +210,7 @@ function getWeather() {
       url: requestWeatherUrl,
       method: 'GET',
       success: function(response) {
+        console.log(response)
           // Update weather object with the response data
           weather.temp = Math.round(response.main.temp);
           weather.feels_like = Math.round(response.main.feels_like);
@@ -262,8 +267,6 @@ function getWeather() {
 
 $("#input-box").click(function () {
   $("#main").addClass("show").slideDown(3000);
-  $("#parkName").addClass("showBox").slideDown(2000);
-  $("#weatherName").addClass("showBox").slideDown(2000);
 })
 
 
