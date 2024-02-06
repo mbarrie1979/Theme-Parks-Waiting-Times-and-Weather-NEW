@@ -4,7 +4,6 @@
 
 var parkId;
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-
 var dataFetched = false; // Flag to indicate if the data has been fetched
 
 var mainDiv = document.getElementById('main-div');

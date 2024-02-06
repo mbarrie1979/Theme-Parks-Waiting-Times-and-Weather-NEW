@@ -120,7 +120,18 @@ body {
     padding: 0px;
 }
 
+#box {
+    height: 100vh;
+}
 
+body {
+    background: rgba(0, 0, 0, 0.7) url(../images/bg-img.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken;
+}
 
 
 
