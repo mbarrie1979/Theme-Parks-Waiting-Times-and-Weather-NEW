@@ -121,12 +121,8 @@ body {
 }
 
 
-
-
-
-
 .width{
-    width:55rem;
+    width:70rem;
 }
 
 #text-input{
@@ -151,7 +147,9 @@ body {
     display: block;
 }
 
-
+.container{
+    animation: fadeIn 1s;
+}
 
 .navbar{
     margin-bottom: 20px;
@@ -166,20 +164,6 @@ body {
  #mynav{
     margin-bottom: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #main{
@@ -205,9 +189,7 @@ cursor: pointer;
     font-size: 35px;
     font-weight:bold;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    animation:fadeIn 3s,slide 3.7s, bge 5s infinite alternate;
-    
-
+    animation:fadeIn 4s,slide 6.7s, bge 5s infinite alternate;
 }
 
 
@@ -220,14 +202,13 @@ cursor: pointer;
 }
 
 .same{
-    width:25rem;
-    height:25rem;
-    background-image: linear-gradient(45deg,rgb(123, 195, 243),rgb(234, 185, 102));
+    width:50rem;
+    height:30rem;
+    background-image: linear-gradient(45deg,rgb(28, 135, 206),rgb(124, 240, 159));
     text-align: center;
     color:rgb(2, 2, 2);
     font-size:20px;
-    border-radius: 20px;
-    overflow: scroll;
+    border-radius: 10px;
     font-weight: bolder;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -236,7 +217,6 @@ cursor: pointer;
 #parkName, #weatherName{
     margin:10px;
     display: none;
-
 }
 
 #group{
@@ -245,21 +225,12 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
     flex-basis: center;
-
 }
 
 
 #group img{
     width:10px;
-
 }
-
-
-
-
-
-
-
 
 
 
@@ -272,6 +243,7 @@ cursor: pointer;
 #btn{
     width:8rem;
     font-size: 20px;
+    animation: slideup 2s;
 }
 
 #closebtn{
@@ -280,6 +252,19 @@ cursor: pointer;
     font-size:15px;
     font-weight: bold;
 
+}
+
+.flex-box{
+    display:flex;
+    justify-content: space-evenly;
+    overflow: scroll;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+   width:15rem;
+    height:25.6rem;
 }
 
 
@@ -292,13 +277,19 @@ cursor: pointer;
 }
 
 @keyframes slide{
-
     0%{transform: translateX(90%);}
-
-    0%{transform: translatex(30rem);}
+    40%{transform: skewX(20deg);}
+    20%{transform: rotateZ(5deg);}
+    10%{transform:scaleX(50%);}
 }
 @keyframes fadeIn{
     0%{opacity: 0%;}
     100%{opacity: 100%;}
 }
+
+@keyframes slideup{
+    0%{transform: translateY(50rem);}
+}
+
+
 
