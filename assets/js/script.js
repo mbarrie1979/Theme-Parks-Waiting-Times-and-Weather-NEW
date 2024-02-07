@@ -133,21 +133,19 @@ function getWaitTimes() {
       $('#parkName').empty();
 
       var openRides = rideInfo.filter(ride => ride.open);
-      openRides.sort((a, b) => a.ride.localeCompare(b.ride));
       var closedRides = rideInfo.filter(ride => !ride.open);
 
-      // Checks if API returns ride info based on ID
+      // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
         var rideElement = $('<p>').text(`Information is currently unavailable for this park.`);
         $('#parkName').append(rideElement);
       } else {
-
-        rideInfo.forEach(function (ride) {
-          // console.log(ride);
+        // Sort alphabetically and move closed rides to the bottom
+        openRides.sort((a, b) => a.ride.localeCompare(b.ride));
+        closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
 
         // Append open rides first
         openRides.forEach(function (ride) {
-
           var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
           $('#parkName').append(rideElement);
         });
@@ -167,10 +165,12 @@ function getWaitTimes() {
   });
 }
 
+
 var currentSortMethod = "alphabetical";
-// Function to toggle between alphabetical and by wait time sorting
-// Function to toggle between alphabetical and by wait time sorting
-// Function to toggle between alphabetical and by wait time sorting
+
+currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
+
+
 function toggleSort() {
   // Get the open rides container element
   const openRidesContainer = $('#parkName');
