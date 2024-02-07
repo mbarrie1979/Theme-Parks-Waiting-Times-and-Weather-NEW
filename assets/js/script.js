@@ -69,7 +69,7 @@ $('#theme-park-list').on('click', 'li', function () {
   lat = $(this).data('lat');
   lon = $(this).data('lon');
   // runs fuctions with affiliated variables
-  getWaitTimes();
+  getWaitTimes(toggleSort);
   getWeather();
   // places selected park completed name in text box
   textInput.value = $(this).text();
@@ -108,7 +108,7 @@ $(textInput).on('input', function () {
 
 
 
-function getWaitTimes() {
+function getWaitTimes(callback) {
   var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
   $.ajax({
     url: parkInfoAPI,
@@ -125,7 +125,7 @@ function getWaitTimes() {
             open: ride.is_open
           }
         })
-      });
+      }).filter(ride => ride.ride && ride.wait_time); 
 
       $('#ride-list').empty();
       $('#wait-list').empty();
@@ -157,6 +157,11 @@ function getWaitTimes() {
           
         $('#ride-list').addClass('showBox').slideDown(2000);
         $('#wait-list').addClass('showBox').slideDown(2000);
+        
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
+        
       }
     },
     error: function (xhr, status, error) {
@@ -169,46 +174,52 @@ function getWaitTimes() {
           
 
 
-
-var currentSortMethod = "alphabetical";
-
-
-currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
-
-
-
-// Function to toggle between alphabetical and by wait time sorting
+var currentSortMethod = 'alphabetical';
 
 function toggleSort() {
   // Get the open rides container element
-  const openRidesContainer = $('#parkName');
+  const rideListContainer = $('#ride-list');
+  const waitListContainer = $('#wait-list');
 
-  // Get all the paragraphs inside the container
-  const openRides = openRidesContainer.find('p');
+  // Get all the list items inside the containers
+  const rides = rideListContainer.find('li');
+  const waits = waitListContainer.find('li');
 
-  // Sort alphabetically or by wait time, keeping closed rides at the bottom
-  const sortedRides = Array.from(openRides).sort((a, b) => {
-    const rideA = a.textContent.toLowerCase();
-    const rideB = b.textContent.toLowerCase();
+  // Combine ride names and wait times into an array of objects
+  const combinedRides = [];
+  for (let i = 0; i < rides.length; i++) {
+    combinedRides.push({
+      ride: $(rides[i]).text(),
+      wait: $(waits[i]).text()
+    });
+  }
 
-    // Check the current sorting method
+  // Sort the combined array
+  combinedRides.sort((a, b) => {
     if (currentSortMethod === 'alphabetical') {
-      // If sorting alphabetically, move closed rides to the bottom
-      return a.textContent.includes('closed') ? 1 : rideA.localeCompare(rideB);
+      return a.ride.localeCompare(b.ride);
     } else {
-      // If sorting by wait time, move closed rides to the bottom based on wait time
-      const timeA = a.textContent.includes('closed') ? Infinity : parseInt(a.textContent.match(/\d+/)[0]);
-      const timeB = b.textContent.includes('closed') ? Infinity : parseInt(b.textContent.match(/\d+/)[0]);
+      const timeA = a.wait.includes('Closed') ? Infinity : parseInt(a.wait.match(/\d+/)[0]);
+      const timeB = b.wait.includes('Closed') ? Infinity : parseInt(b.wait.match(/\d+/)[0]);
       return timeA - timeB;
     }
   });
 
-  // Clear the container and append the sorted rides
-  openRidesContainer.empty().append(sortedRides);
+  // Clear the containers
+  rideListContainer.empty();
+  waitListContainer.empty();
+
+  // Append the sorted rides and waits to their respective containers
+  combinedRides.forEach(ride => {
+    rideListContainer.append(`<li>${ride.ride}</li>`);
+    waitListContainer.append(`<li>${ride.wait}</li>`);
+  });
 
   // Toggle the sorting method
   currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
 }
+
+
 
 $('#toggle').on('click', toggleSort)
 
