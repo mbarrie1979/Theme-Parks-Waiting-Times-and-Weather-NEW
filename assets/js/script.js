@@ -127,7 +127,8 @@ function getWaitTimes() {
         })
       });
 
-      $('#parkName').empty();
+      $('#ride-list').empty();
+      $('#wait-list').empty();
 
       var openRides = rideInfo.filter(ride => ride.open);
       var closedRides = rideInfo.filter(ride => !ride.open);
@@ -142,18 +143,31 @@ function getWaitTimes() {
 
         // Append open rides first
         openRides.forEach(function (ride) {
-          var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
-          $('#parkName').append(rideElement);
-        })
-        $('#parkName').addClass('showBox').slideDown(2000);
-      }
+          $('#ride-list').append(`<li>${ride.ride}</li>`)
+        });
 
+        openRides.forEach(function (ride) {
+          $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`)
+        });
+
+        closedRides.forEach(function (ride) {
+          $('#ride-list').append('<li>${ride.ride}</li>');
+          $('#wait-list').append('<li>Closed</li>')
+        })
+          
+        $('#ride-list').addClass('showBox').slideDown(2000);
+        $('#wait-list').addClass('showBox').slideDown(2000);
+      }
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
-}
+}     
+          
+          
+          
+
 
 
 var currentSortMethod = "alphabetical";
@@ -195,11 +209,6 @@ function toggleSort() {
   // Toggle the sorting method
   currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
 }
-
-
- 
-
-
 
 $('#toggle').on('click', toggleSort)
 
