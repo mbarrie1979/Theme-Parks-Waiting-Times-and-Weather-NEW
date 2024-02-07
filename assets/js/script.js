@@ -158,8 +158,12 @@ function getWaitTimes() {
 
 var currentSortMethod = "alphabetical";
 
+
 currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
 
+
+
+// Function to toggle between alphabetical and by wait time sorting
 
 function toggleSort() {
   // Get the open rides container element
