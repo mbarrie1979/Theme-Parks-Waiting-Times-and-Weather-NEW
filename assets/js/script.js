@@ -63,18 +63,22 @@ function loadData(data, element) {
 
 // Attach click event listener to the parent ul element and use event delegation
 $('#theme-park-list').on('click', 'li', function () {
-  console.log($(this).text());
+  // console.log($(this).text());
   // retrieves data attributes and writes to variables
   parkId = $(this).data('parkid');
   lat = $(this).data('lat');
   lon = $(this).data('lon');
   // runs fuctions with affiliated variables
-  getWaitTimes();
+  getWaitTimes(toggleSort);
   getWeather();
   // places selected park completed name in text box
-  textInput.value = $(this).text();
+  $('#text-input').val("")
   // clears the list once selected
   parkListElement.innerHTML = "";
+
+  // triggers card animation
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
 });
 
 
@@ -108,7 +112,7 @@ $(textInput).on('input', function () {
 
 
 
-function getWaitTimes() {
+function getWaitTimes(callback) {
   var parkInfoAPI = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks/' + parkId + '/queue_times.json')
   $.ajax({
     url: parkInfoAPI,
@@ -125,44 +129,111 @@ function getWaitTimes() {
             open: ride.is_open
           }
         })
-      });
+      }).filter(ride => ride.ride && ride.wait_time); 
 
-      $('#parkName').empty();
+      $('#ride-list').empty();
+      $('#wait-list').empty();
 
-      //checks if API returns ride info based on ID
+      var openRides = rideInfo.filter(ride => ride.open);
+      var closedRides = rideInfo.filter(ride => !ride.open);
+
+      // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
         console.log("Ride information is not available for this park")
       } else {
-        rideInfo.forEach(function (ride) {
-          console.log(ride);
-          var rideElement = $('<p>').text(`${ride.ride}: ${ride.wait_time} mins`);
-          $('#parkName').append(rideElement);
-        })
-        $('#parkName').addClass('showBox').slideDown(2000);
-      }
+        // Sort alphabetically and move closed rides to the bottom
+        openRides.sort((a, b) => a.ride.localeCompare(b.ride));
+        closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
 
+        // Append open rides first
+        openRides.forEach(function (ride) {
+          $('#ride-list').append(`<li class="row">${ride.ride}</li>`)
+        });
+
+        openRides.forEach(function (ride) {
+          $('#wait-list').append(`<li class="row">${ride.wait_time} mins.</li>`)
+        });
+
+        closedRides.forEach(function (ride) {
+          $('#ride-list').append(`<li>${ride.ride}</li>`);
+          $('#wait-list').append(`<li>Closed</li>`)
+        })
+          
+        $('#ride-list').addClass('showBox').slideDown(2000);
+        $('#wait-list').addClass('showBox').slideDown(2000);
+        
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
+        
+      }
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
+}     
+          
+          
+          
+
+
+var currentSortMethod = 'alphabetical';
+
+function toggleSort() {
+  // Get the open rides container element
+  const rideListContainer = $('#ride-list');
+  const waitListContainer = $('#wait-list');
+
+  // Get all the list items inside the containers
+  const rides = rideListContainer.find('li');
+  const waits = waitListContainer.find('li');
+
+  // Combine ride names and wait times into an array of objects
+  const combinedRides = [];
+  for (let i = 0; i < rides.length; i++) {
+    combinedRides.push({
+      ride: $(rides[i]).text(),
+      wait: $(waits[i]).text()
+    });
+  }
+
+  // Sort the combined array
+  combinedRides.sort((a, b) => {
+    if (currentSortMethod === 'alphabetical') {
+      return a.ride.localeCompare(b.ride);
+    } else {
+      const timeA = a.wait.includes('Closed') ? Infinity : parseInt(a.wait.match(/\d+/)[0]);
+      const timeB = b.wait.includes('Closed') ? Infinity : parseInt(b.wait.match(/\d+/)[0]);
+      return timeA - timeB;
+    }
+  });
+
+  // Clear the containers
+  rideListContainer.empty();
+  waitListContainer.empty();
+
+  // Append the sorted rides and waits to their respective containers
+  combinedRides.forEach(ride => {
+    rideListContainer.append(`<li>${ride.ride}</li>`);
+    waitListContainer.append(`<li>${ride.wait}</li>`);
+  });
+
+  // Toggle the sorting method
+  currentSortMethod = (currentSortMethod === 'alphabetical') ? 'waitTime' : 'alphabetical';
 }
 
 
 
-// if (isOpen === true) {
-// console.log("This ride is open: " + isOpen)
-// var para = document.createElement('p');
-// para.textContent = landName + " is the home of " + rideName  + 
-// ", which currently has a wait time of " + waitTime  + " minutes." 
-// mainDiv.append(para)
-// }
+$('#toggle').on('click', toggleSort)
 
 
 
 
 
- 
+
+
+
 
 
 
@@ -199,32 +270,44 @@ var weather = {};
 
 // rewuest for openWeather API
 function getWeather() {
-  console.log(`latitude = ${lat},longitude = ${lon}`);
-  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
-$.ajax({
-  url: requestWeatherUrl,
-  method: 'GET',
-}).then(function (response) {
-  // console.log(response);
-  weather.temp = response.main.temp
-  weather.feels_like = response.main.feels_like
-  weather.description = response.weather[0].description
-  weather.wind_speed = response.wind.speed;
-  weather.humidity = response.main.humidity;
-  console.log(weather)
-});;
+  console.log(`latitude = ${lat}, longitude = ${lon}`);
+  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial';
+
   $.ajax({
     url: requestWeatherUrl,
     method: 'GET',
-  }).then(function (response) {
-    // console.log(response);
-    weather.temp = response.main.temp
-    weather.feels_like = response.main.feels_like
-    weather.description = response.weather[0].description
-    weather.wind_speed = response.wind.speed;
-    weather.humidity = response.main.humidity;
-    console.log(weather)
+    success: function (response) {
+      console.log(response)
+      // Update weather object with the response data
+      weather.temp = Math.round(response.main.temp);
+      weather.feels_like = Math.round(response.main.feels_like);
+      weather.description = response.weather[0].description;
+      weather.wind_speed = response.wind.speed;
+      weather.humidity = response.main.humidity;
+      weather.icon = response.weather[0].icon;
 
+      // Clear previous weather data
+      $('#weatherName').empty();
+
+      // Append new weather data
+      var weatherContent = `
+              <h2>Weather:</h2>
+              <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
+              <p>Temperature: ${weather.temp}°F</p>
+              <p>Feels Like: ${weather.feels_like}°F</p>
+              <p>Condition: ${weather.description}</p>
+              <p>Wind Speed: ${weather.wind_speed} MPH</p>
+              <p>Humidity: ${weather.humidity}%</p>
+          `;
+
+      // Append weather data to the DOM
+      $('#weatherName').html(weatherContent);
+      $('#weatherName').addClass('showBox').slideDown(2000);
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching weather:", error);
+      alert("Failed to retrieve weather data. Please try again.");
+    }
   });
 }
 
@@ -250,8 +333,6 @@ $.ajax({
 
 $("#input-box").click(function () {
   $("#main").addClass("show").slideDown(3000);
-  $("#parkName").addClass("showBox").slideDown(2000);
-  $("#weatherName").addClass("showBox").slideDown(2000);
 })
 
 

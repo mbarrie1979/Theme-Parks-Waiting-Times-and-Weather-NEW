@@ -18,7 +18,7 @@ body {
 
 @media screen and (max-width:600px){
     .container{
-        width: 15rem;
+        width: 25rem;
     }
 
     #flex{
@@ -26,21 +26,18 @@ body {
         flex-direction: column;
     }
     .same {
-        width: 15rem;
+        width: 20rem;
     }
     #myH1 {
         text-align: center;
     }
-    .navbar {
+    .navbar-menu {
         display: flex;
         flex-wrap:nowrap;
     }
-    .aboutbtn {
-        display: inline;
-
+    .navbar-brand {
+        display: block;
     }
-    
-  
 }
 
 
