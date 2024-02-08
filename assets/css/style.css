@@ -296,4 +296,27 @@ cursor: pointer;
 }
 
 
+@media screen and (max-width:800px){
+    .navbar-brand{
+        display:block;
+    }
+    .navbar-menu{
+        display: flex;
+        justify-content: start;
+        align-items: start;
+    }
+
+    .container{
+        width:30rem;
+    }
+
+    .same{
+        width:29rem;
+    }
+    #flex{
+        display:flex;
+        flex-direction: column;
+    }
+}
+
 
