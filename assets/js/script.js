@@ -144,23 +144,24 @@ function getWaitTimes(callback) {
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
         closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
-
+      
         // Append open rides first
         openRides.forEach(function (ride) {
           $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
         });
-
+      
         openRides.forEach(function (ride) {
           $('#wait-list').append(`<li class="wait-item">${ride.wait_time} mins.</li>`);
         });
-
+      
         closedRides.forEach(function (ride) {
           $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
           $('#wait-list').append(`<li class="wait-item">Closed</li>`);
         });
 
+      
         $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
-
+      
         if (callback && typeof callback === 'function') {
           callback();
         }

@@ -107,10 +107,6 @@ body {
 
 
 
-
-
-
-
 /* Eric code here don't forget GIT STATUS */
 
 
@@ -267,7 +263,12 @@ cursor: pointer;
     height:25.6rem;
 }
 
-
+/* .ride-item, .wait-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Optional: Use ellipsis for long ride names */
+  }
+   */
 
 
 
