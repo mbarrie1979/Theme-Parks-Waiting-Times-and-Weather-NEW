@@ -215,6 +215,13 @@ cursor: pointer;
     display: none;
 }
 
+#parkName > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 5px 0px 5px;
+}
+
 #group{
     display: flex;
     flex-wrap: wrap;
@@ -250,6 +257,10 @@ cursor: pointer;
 
 }
 
+#sort-btn {
+    margin-bottom: 5px;
+}
+
 .flex-box{
     display:flex;
     justify-content: space-evenly;
@@ -262,14 +273,6 @@ cursor: pointer;
    width:15rem;
     height:25.6rem;
 }
-
-/* .ride-item, .wait-item {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Optional: Use ellipsis for long ride names */
-  }
-   */
-
 
 
 @keyframes bge{
