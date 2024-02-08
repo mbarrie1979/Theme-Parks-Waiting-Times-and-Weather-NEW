@@ -160,28 +160,37 @@ function getWaitTimes(callback) {
 
       // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
+        $('#ride-box').empty();
+        $('#park-info').empty();
+        $('#rides').empty();
+        $('#waitT').empty();
+        $('#ride-box').append('<p>Information about this park is currently unavailable.</p>');
         console.log("Ride information is not available for this park");
       } else {
+        
+        
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
         closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
 
         // Append open rides first
         openRides.forEach(function (ride) {
-          $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
+          $('#ride-list').append(`<li>${truncateRideName(ride.ride)}</li>`);
         });
 
         openRides.forEach(function (ride) {
-          $('#wait-list').append(`<li class="wait-item">${ride.wait_time} mins.</li>`);
+          $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`);
         });
 
         closedRides.forEach(function (ride) {
-          $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
-          $('#wait-list').append(`<li class="wait-item">Closed</li>`);
+          $('#ride-list').append(`<li >${truncateRideName(ride.ride)}</li>`);
+          $('#wait-list').append(`<li>Closed</li>`);
         });
 
 
+
         $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
+
 
         if (callback && typeof callback === 'function') {
           callback();
@@ -190,7 +199,7 @@ function getWaitTimes(callback) {
 
       function truncateRideName(rideName) {
         // Adjust the maximum length to your preference
-        var maxLength = 20;
+        var maxLength = 30;
         if (rideName.length > maxLength) {
           // Truncate and add ellipsis
           return rideName.slice(0, maxLength - 3) + '...';
@@ -411,8 +420,8 @@ displayUserParks();
 
 // Erics code //
 
-$("#input-box").click(function () {
-  $("#main").addClass("show").slideDown(3000);
+$("#input-box").keyup(function () {
+  $("#main").addClass("show").slideDown(3000)
 })
 
 
