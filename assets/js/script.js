@@ -174,7 +174,7 @@ function getWaitTimes(callback) {
 
       function truncateRideName(rideName) {
         // Adjust the maximum length to your preference
-        var maxLength = 20;
+        var maxLength = 35;
         if (rideName.length > maxLength) {
           // Truncate and add ellipsis
           return rideName.slice(0, maxLength - 3) + '...';
