@@ -4,15 +4,16 @@
 
 var parkId;
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
-
+var parkName;
 var dataFetched = false; // Flag to indicate if the data has been fetched
 
 var mainDiv = document.getElementById('main-div');
 var parks = [];
 var parksList = [];
 var parkObjects = [];
-var parkListElement = document.querySelector('#theme-park-list')
-var textInput = document.querySelector('#text-input')
+var userParks = [];
+var parkListElement = $('#theme-park-list')
+var textInput = $('#text-input')
 
 
 
@@ -63,8 +64,9 @@ function loadData(data, element) {
 
 // Attach click event listener to the parent ul element and use event delegation
 $('#theme-park-list').on('click', 'li', function () {
-  // console.log($(this).text());
+
   // retrieves data attributes and writes to variables
+  parkName = $(this).text();
   parkId = $(this).data('parkid');
   lat = $(this).data('lat');
   lon = $(this).data('lon');
@@ -74,7 +76,26 @@ $('#theme-park-list').on('click', 'li', function () {
   // places selected park completed name in text box
   $('#text-input').val("")
   // clears the list once selected
-  parkListElement.innerHTML = "";
+  parkListElement.empty();
+  getData();
+
+  userParkData = {
+    name: parkName,
+    Id: parkId,
+    lat: lat,
+    lon: lon
+  }
+  // Check if the park is already in the userParks array based on its name
+  var parkExists = userParks.some(function (park) {
+    return park.name === parkName;
+  });
+
+  if (!parkExists) {
+    userParks.push(userParkData); // Add park to array if not already present
+    storeData(userParks); // Assuming this function stores data somewhere
+    displayUserParks(); // Assuming this function updates the UI with user parks
+  }
+
 
   // triggers card animation
   $("#parkName").addClass("showBox").slideDown(2000);
@@ -144,24 +165,24 @@ function getWaitTimes(callback) {
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
         closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
-      
+
         // Append open rides first
         openRides.forEach(function (ride) {
           $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
         });
-      
+
         openRides.forEach(function (ride) {
           $('#wait-list').append(`<li class="wait-item">${ride.wait_time} mins.</li>`);
         });
-      
+
         closedRides.forEach(function (ride) {
           $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
           $('#wait-list').append(`<li class="wait-item">Closed</li>`);
         });
 
-      
+
         $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
-      
+
         if (callback && typeof callback === 'function') {
           callback();
         }
@@ -201,7 +222,7 @@ function toggleSort() {
 
   // Combine ride names and wait times into an array of objects
   var combinedRides = [];
-  for (let i = 0; i < rides.length; i++) {
+  for (var i = 0; i < rides.length; i++) {
     combinedRides.push({
       ride: $(rides[i]).text(),
       wait: $(waits[i]).text()
@@ -274,13 +295,11 @@ $('#sort-btn').on('click', toggleSort)
 
 
 //AJAX call requires a third party library, jQuery
-var city = 'Orlando';
 var lat;
 var lon;
 // console.log(`latitude = ${lat},longitude = ${lon}`);
 var weatherAPIKey = 'f5ae2638dc599c5d3619396cd657ae93';
-// var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherAPIKey + '&units=imperial'
-// lat={lat}&lon={lon}
+
 var weather = {};
 
 
@@ -328,14 +347,58 @@ function getWeather() {
   });
 }
 
+function displayUserParks() {
+  // storeData(userParks);
+
+  // Clear existing park buttons to prevent duplicates
+  $('#recent').empty();
+
+  // iterates over userParks array to be appended to the DOM as buttons
+  userParks.forEach(function (park) {
+    var parkButton = $('<button>')
+      .addClass('button is-info m-1') // Add Bulma classes and a margin
+      .text(park.name) // Set the button text to the park name
+      .on('click', function () {
+        parkName = (park.name)
+        parkId = (park.Id)
+        console.log(`The button is reading: ${parkId}`);
+        lat = (park.lat)
+        lon = (park.lon)
+        getWaitTimes(toggleSort);
+        getWeather();
+        $("#parkName").addClass("showBox").slideDown(2000);
+        $("#weatherName").addClass("showBox").slideDown(2000);
+      });
+
+    // Appends buttons in list items to the DOM
+    var searchEl = $('<span>')
+    $('#recent').append(searchEl);
+    searchEl.html(parkButton);
+
+  });
+}
+
+
+// Stores to local storage
+function storeData(arr) {
+  console.log(arr)
+  localStorage.setItem('userParks', JSON.stringify(arr));
+}
+
+
+// Retrieves data from local storage to be displayed
+function getData() {
+  var storedParks = JSON.parse(localStorage.getItem('userParks'));
+  if (storedParks !== null) {
+    userParks = storedParks;
+  }
+  // displayUserParks();
+}
 
 
 
-
-
-
-
-
+getData();
+displayUserParks();
 
 
 
