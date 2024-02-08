@@ -159,9 +159,14 @@ function getWaitTimes(callback) {
           $('#wait-list').append(`<li class="wait-item">Closed</li>`);
         });
 
-      
-        $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
-      
+        closedRides.forEach(function (ride) {
+          $('#ride-list').append(`<li>${ride.ride}</li>`);
+          $('#wait-list').append(`<li>Closed</li>`);
+        })
+          
+        $('#ride-list').addClass('showBox').slideDown(2000);
+        $('#wait-list').addClass('showBox').slideDown(2000);
+        
         if (callback && typeof callback === 'function') {
           callback();
         }
