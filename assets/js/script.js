@@ -129,7 +129,7 @@ function getWaitTimes(callback) {
             open: ride.is_open
           }
         })
-      }).filter(ride => ride.ride && ride.wait_time); 
+      }).filter(ride => ride.ride && ride.wait_time);
 
       $('#ride-list').empty();
       $('#wait-list').empty();
@@ -139,7 +139,7 @@ function getWaitTimes(callback) {
 
       // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
-        console.log("Ride information is not available for this park")
+        console.log("Ride information is not available for this park");
       } else {
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
@@ -147,35 +147,44 @@ function getWaitTimes(callback) {
 
         // Append open rides first
         openRides.forEach(function (ride) {
-          $('#ride-list').append(`<li class="row">${ride.ride}</li>`)
+          $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
         });
 
         openRides.forEach(function (ride) {
-          $('#wait-list').append(`<li class="row">${ride.wait_time} mins.</li>`)
+          $('#wait-list').append(`<li class="wait-item">${ride.wait_time} mins.</li>`);
         });
 
         closedRides.forEach(function (ride) {
-          $('#ride-list').append(`<li>${ride.ride}</li>`);
-          $('#wait-list').append(`<li>Closed</li>`)
-        })
-          
-        $('#ride-list').addClass('showBox').slideDown(2000);
-        $('#wait-list').addClass('showBox').slideDown(2000);
-        
+          $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
+          $('#wait-list').append(`<li class="wait-item">Closed</li>`);
+        });
+
+        $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
+
         if (callback && typeof callback === 'function') {
           callback();
         }
-        
       }
+
+      function truncateRideName(rideName) {
+        // Adjust the maximum length to your preference
+        const maxLength = 20;
+        if (rideName.length > maxLength) {
+          // Truncate and add ellipsis
+          return rideName.slice(0, maxLength - 3) + '...';
+        }
+        return rideName;
+      }
+
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
-}     
-          
-          
-          
+}
+
+
+
 
 
 var currentSortMethod = 'alphabetical';
@@ -291,7 +300,7 @@ function getWeather() {
 
       // Append new weather data
       var weatherContent = `
-              <h2>Weather:</h2>
+              <h2 class="mt-5">Weather:</h2>
               <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
               <p>Temperature: ${weather.temp}°F</p>
               <p>Feels Like: ${weather.feels_like}°F</p>
