@@ -264,14 +264,15 @@ cursor: pointer;
 .flex-box{
     display:flex;
     justify-content: space-evenly;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .col{
     display: flex;
     flex-direction: column;
-   width:15rem;
-    height:25.6rem;
+    width:15rem;
+    height:26.7rem;
+   
 }
 
 #recent-search{
@@ -285,9 +286,9 @@ align-items: end;
     transform: translateY(-5rem);
     margin-right:1rem;
     width:26rem;
-    height:10rem;
+    height:7rem;
     background-color: rgb(252, 248, 248);
-    overflow-y: scroll;
+    overflow: auto;
     border-radius:10px;
 }
 
@@ -313,7 +314,7 @@ align-items: end;
 }
 
 
-@media screen and (max-width:800px){
+@media screen and (width < 800px){
     .navbar-brand{
         display:block;
     }
@@ -324,16 +325,24 @@ align-items: end;
     }
 
     .container{
-        width:30rem;
+        width:26rem;
     }
 
     .same{
-        width:29rem;
+        width:25rem;
     }
     #flex{
         display:flex;
         flex-direction: column;
     }
+
+    #recent{
+        margin-top:3rem;
+    }
 }
+
+
+
+
 
 
