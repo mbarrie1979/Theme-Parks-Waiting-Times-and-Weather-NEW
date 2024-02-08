@@ -274,6 +274,23 @@ cursor: pointer;
     height:25.6rem;
 }
 
+#recent-search{
+display: flex;
+justify-content: end;
+align-items: end;
+}
+
+#recent{
+    transform: translateX(-2rem);
+    transform: translateY(-5rem);
+    margin-right:1rem;
+    width:26rem;
+    height:10rem;
+    background-color: rgb(252, 248, 248);
+    overflow-y: scroll;
+    border-radius:10px;
+}
+
 
 @keyframes bge{
     0%{background-position: left;}
