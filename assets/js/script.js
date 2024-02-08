@@ -63,7 +63,7 @@ function loadData(data, element) {
 
 // Attach click event listener to the parent ul element and use event delegation
 $('#theme-park-list').on('click', 'li', function () {
-  console.log($(this).text());
+  // console.log($(this).text());
   // retrieves data attributes and writes to variables
   parkId = $(this).data('parkid');
   lat = $(this).data('lat');
@@ -72,9 +72,13 @@ $('#theme-park-list').on('click', 'li', function () {
   getWaitTimes(toggleSort);
   getWeather();
   // places selected park completed name in text box
-  textInput.value = $(this).text();
+  $('#text-input').val("")
   // clears the list once selected
   parkListElement.innerHTML = "";
+
+  // triggers card animation
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
 });
 
 
@@ -143,16 +147,16 @@ function getWaitTimes(callback) {
 
         // Append open rides first
         openRides.forEach(function (ride) {
-          $('#ride-list').append(`<li>${ride.ride}</li>`)
+          $('#ride-list').append(`<li class="row">${ride.ride}</li>`)
         });
 
         openRides.forEach(function (ride) {
-          $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`)
+          $('#wait-list').append(`<li class="row">${ride.wait_time} mins.</li>`)
         });
 
         closedRides.forEach(function (ride) {
-          $('#ride-list').append('<li>${ride.ride}</li>');
-          $('#wait-list').append('<li>Closed</li>')
+          $('#ride-list').append(`<li>${ride.ride}</li>`);
+          $('#wait-list').append(`<li>Closed</li>`)
         })
           
         $('#ride-list').addClass('showBox').slideDown(2000);
@@ -229,7 +233,7 @@ $('#toggle').on('click', toggleSort)
 
 
 
- 
+
 
 
 
@@ -266,32 +270,44 @@ var weather = {};
 
 // rewuest for openWeather API
 function getWeather() {
-  console.log(`latitude = ${lat},longitude = ${lon}`);
-  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial'
-$.ajax({
-  url: requestWeatherUrl,
-  method: 'GET',
-}).then(function (response) {
-  // console.log(response);
-  weather.temp = response.main.temp
-  weather.feels_like = response.main.feels_like
-  weather.description = response.weather[0].description
-  weather.wind_speed = response.wind.speed;
-  weather.humidity = response.main.humidity;
-  console.log(weather)
-});;
+  console.log(`latitude = ${lat}, longitude = ${lon}`);
+  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial';
+
   $.ajax({
     url: requestWeatherUrl,
     method: 'GET',
-  }).then(function (response) {
-    // console.log(response);
-    weather.temp = response.main.temp
-    weather.feels_like = response.main.feels_like
-    weather.description = response.weather[0].description
-    weather.wind_speed = response.wind.speed;
-    weather.humidity = response.main.humidity;
-    console.log(weather)
+    success: function (response) {
+      console.log(response)
+      // Update weather object with the response data
+      weather.temp = Math.round(response.main.temp);
+      weather.feels_like = Math.round(response.main.feels_like);
+      weather.description = response.weather[0].description;
+      weather.wind_speed = response.wind.speed;
+      weather.humidity = response.main.humidity;
+      weather.icon = response.weather[0].icon;
 
+      // Clear previous weather data
+      $('#weatherName').empty();
+
+      // Append new weather data
+      var weatherContent = `
+              <h2>Weather:</h2>
+              <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
+              <p>Temperature: ${weather.temp}°F</p>
+              <p>Feels Like: ${weather.feels_like}°F</p>
+              <p>Condition: ${weather.description}</p>
+              <p>Wind Speed: ${weather.wind_speed} MPH</p>
+              <p>Humidity: ${weather.humidity}%</p>
+          `;
+
+      // Append weather data to the DOM
+      $('#weatherName').html(weatherContent);
+      $('#weatherName').addClass('showBox').slideDown(2000);
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching weather:", error);
+      alert("Failed to retrieve weather data. Please try again.");
+    }
   });
 }
 
@@ -317,8 +333,6 @@ $.ajax({
 
 $("#input-box").click(function () {
   $("#main").addClass("show").slideDown(3000);
-  $("#parkName").addClass("showBox").slideDown(2000);
-  $("#weatherName").addClass("showBox").slideDown(2000);
 })
 
 
