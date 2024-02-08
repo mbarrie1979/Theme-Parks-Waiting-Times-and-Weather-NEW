@@ -128,7 +128,7 @@ function getWaitTimes(callback) {
             open: ride.is_open
           }
         })
-      }).filter(ride => ride.ride && ride.wait_time); 
+      }).filter(ride => ride.ride && ride.wait_time);
 
       $('#ride-list').empty();
       $('#wait-list').empty();
@@ -157,6 +157,7 @@ function getWaitTimes(callback) {
           $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
           $('#wait-list').append(`<li class="wait-item">Closed</li>`);
         });
+
       
         $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
       
@@ -164,41 +165,41 @@ function getWaitTimes(callback) {
           callback();
         }
       }
-      
+
       function truncateRideName(rideName) {
         // Adjust the maximum length to your preference
-        const maxLength = 20;
+        var maxLength = 20;
         if (rideName.length > maxLength) {
           // Truncate and add ellipsis
           return rideName.slice(0, maxLength - 3) + '...';
         }
         return rideName;
       }
-      
+
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
-}     
-          
-          
-          
+}
+
+
+
 
 
 var currentSortMethod = 'alphabetical';
 
 function toggleSort() {
   // Get the open rides container element
-  const rideListContainer = $('#ride-list');
-  const waitListContainer = $('#wait-list');
+  var rideListContainer = $('#ride-list');
+  var waitListContainer = $('#wait-list');
 
   // Get all the list items inside the containers
-  const rides = rideListContainer.find('li');
-  const waits = waitListContainer.find('li');
+  var rides = rideListContainer.find('li');
+  var waits = waitListContainer.find('li');
 
   // Combine ride names and wait times into an array of objects
-  const combinedRides = [];
+  var combinedRides = [];
   for (let i = 0; i < rides.length; i++) {
     combinedRides.push({
       ride: $(rides[i]).text(),
@@ -211,11 +212,18 @@ function toggleSort() {
     if (currentSortMethod === 'alphabetical') {
       return a.ride.localeCompare(b.ride);
     } else {
-      const timeA = a.wait.includes('Closed') ? Infinity : parseInt(a.wait.match(/\d+/)[0]);
-      const timeB = b.wait.includes('Closed') ? Infinity : parseInt(b.wait.match(/\d+/)[0]);
+      var timeA = a.wait.includes('Closed') ? Infinity : parseInt(a.wait.match(/\d+/)[0]);
+      var timeB = b.wait.includes('Closed') ? Infinity : parseInt(b.wait.match(/\d+/)[0]);
       return timeA - timeB;
     }
   });
+
+  const sortButton = $('#sort-btn');
+  if (currentSortMethod === 'alphabetical') {
+    sortButton.text('Sort by Wait Time');
+  } else {
+    sortButton.text('Sort Alphabetically');
+  }
 
   // Clear the containers
   rideListContainer.empty();
@@ -233,7 +241,7 @@ function toggleSort() {
 
 
 
-$('#toggle').on('click', toggleSort)
+$('#sort-btn').on('click', toggleSort)
 
 
 
@@ -299,7 +307,7 @@ function getWeather() {
 
       // Append new weather data
       var weatherContent = `
-              <h2>Weather:</h2>
+              <h2 class="mt-5">Weather:</h2>
               <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
               <p>Temperature: ${weather.temp}°F</p>
               <p>Feels Like: ${weather.feels_like}°F</p>

@@ -120,14 +120,7 @@ body {
     height: 100vh;
 }
 
-body {
-    background: rgba(0, 0, 0, 0.7) url(../images/bg-img.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-blend-mode: darken;
-}
+
 
 
 
@@ -230,6 +223,13 @@ cursor: pointer;
     display: none;
 }
 
+#parkName > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 5px 0px 5px;
+}
+
 #group{
     display: flex;
     flex-wrap: wrap;
@@ -257,12 +257,16 @@ cursor: pointer;
     animation: slideup 2s;
 }
 
-#closebtn{
+#closebtn, li, p{
     padding:10px;
     border-radius: 5px;
     font-size:15px;
     font-weight: bold;
 
+}
+
+#sort-btn {
+    margin-bottom: 5px;
 }
 
 .flex-box{
