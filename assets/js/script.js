@@ -360,8 +360,8 @@ function getWeather() {
 
 // Erics code //
 
-$("#input-box").click(function () {
-  $("#main").addClass("show").slideDown(3000);
+$("#input-box").keyup(function () {
+  $("#main").addClass("show").slideDown(3000)
 })
 
 
