@@ -242,7 +242,7 @@ cursor: pointer;
     animation: slideup 2s;
 }
 
-#closebtn{
+#closebtn, li, p{
     padding:10px;
     border-radius: 5px;
     font-size:15px;

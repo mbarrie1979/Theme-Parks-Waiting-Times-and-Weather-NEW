@@ -129,7 +129,7 @@ function getWaitTimes(callback) {
             open: ride.is_open
           }
         })
-      }).filter(ride => ride.ride && ride.wait_time); 
+      }).filter(ride => ride.ride && ride.wait_time);
 
       $('#ride-list').empty();
       $('#wait-list').empty();
@@ -158,6 +158,7 @@ function getWaitTimes(callback) {
           $('#ride-list').append(`<li class="ride-item">${truncateRideName(ride.ride)}</li>`);
           $('#wait-list').append(`<li class="wait-item">Closed</li>`);
         });
+
       
         $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
       
@@ -165,7 +166,7 @@ function getWaitTimes(callback) {
           callback();
         }
       }
-      
+
       function truncateRideName(rideName) {
         // Adjust the maximum length to your preference
         const maxLength = 20;
@@ -175,16 +176,16 @@ function getWaitTimes(callback) {
         }
         return rideName;
       }
-      
+
     },
     error: function (xhr, status, error) {
       console.error("Error:", error);
     }
   });
-}     
-          
-          
-          
+}
+
+
+
 
 
 var currentSortMethod = 'alphabetical';
@@ -300,7 +301,7 @@ function getWeather() {
 
       // Append new weather data
       var weatherContent = `
-              <h2>Weather:</h2>
+              <h2 class="mt-5">Weather:</h2>
               <img src="http://openweathermap.org/img/wn/${weather.icon}.png" alt="Weather icon" style="height:10rem;">
               <p>Temperature: ${weather.temp}°F</p>
               <p>Feels Like: ${weather.feels_like}°F</p>
