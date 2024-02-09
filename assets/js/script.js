@@ -160,10 +160,7 @@ function getWaitTimes(callback) {
 
       // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
-        // $('#ride-box').empty();
-        // $('#park-info').empty();
-        // $('#rides').empty();
-        // $('#waitT').empty();
+        $('#alert-box').empty();
         $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
         console.log("Ride information is not available for this park");
         $('#ride-list').empty();
