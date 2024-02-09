@@ -381,7 +381,7 @@ width:15rem auto;
 
 #recent{
     transform: translateX(-2rem);
-    transform: translateY(-5rem);
+    transform: translateY(-7rem);
     margin-right:1rem;
     width:26rem;
     height:7rem;
@@ -477,11 +477,11 @@ transition: transform 0.2s ease-in;
     }
 
     #recent{
-        margin-top:3rem;
+        margin-top:6rem;
     }
     #clear-btn{
         position: absolute;
-        top:13rem;
+        top:17rem;
         left:0;
         width:10rem;
     }
