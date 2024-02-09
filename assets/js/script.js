@@ -98,8 +98,8 @@ $('#theme-park-list').on('click', 'li', function () {
 
 
   // triggers card animation
-  $("#parkName").addClass("showBox").slideDown(2000);
-  $("#weatherName").addClass("showBox").slideDown(2000);
+  animateWindows();
+
 });
 
 
@@ -169,7 +169,7 @@ function getWaitTimes(callback) {
         $('#ride-list').empty();
         $('#wait-list').empty();
       } else {
-        
+
         $('#alert-box').empty();
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
@@ -191,7 +191,7 @@ function getWaitTimes(callback) {
 
 
 
-        $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
+        // $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
 
 
         if (callback && typeof callback === 'function') {
@@ -349,7 +349,7 @@ function getWeather() {
 
       // Append weather data to the DOM
       $('#weatherName').html(weatherContent);
-      $('#weatherName').addClass('showBox').slideDown(2000);
+      // $('#weatherName').addClass('showBox').slideDown(2000);
     },
     error: function (xhr, status, error) {
       console.error("Error fetching weather:", error);
@@ -377,8 +377,8 @@ function displayUserParks() {
         lon = (park.lon)
         getWaitTimes(toggleSort);
         getWeather();
-        $("#parkName").addClass("showBox").slideDown(2000);
-        $("#weatherName").addClass("showBox").slideDown(2000);
+        animateWindows();
+
       });
 
     // Appends buttons in list items to the DOM
@@ -414,7 +414,10 @@ displayUserParks();
 
 
 
-
+function animateWindows() {
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
+}
 
 
 
