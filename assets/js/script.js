@@ -160,15 +160,17 @@ function getWaitTimes(callback) {
 
       // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
-        $('#ride-box').empty();
-        $('#park-info').empty();
-        $('#rides').empty();
-        $('#waitT').empty();
-        $('#ride-box').append('<p>Information about this park is currently unavailable.</p>');
+        // $('#ride-box').empty();
+        // $('#park-info').empty();
+        // $('#rides').empty();
+        // $('#waitT').empty();
+        $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
         console.log("Ride information is not available for this park");
+        $('#ride-list').empty();
+        $('#wait-list').empty();
       } else {
         
-        
+        $('#alert-box').empty();
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
         closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
