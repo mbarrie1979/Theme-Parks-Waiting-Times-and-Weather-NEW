@@ -42,7 +42,7 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <button id="btn" class="button is-info is-outlined fade"><strong>About!</strong></button>
+                            <button id="btn" class="button is-outlined"><strong>About!</strong></button>
                         </div>
                     </div>
                 </div>
@@ -63,12 +63,20 @@
 
                 <div class="control" id="input-box">
                     <h1 style="transform:translateY(-40px); font-size:40px; font-weight:bold; font-style: italic; font-family: 'Times New Roman', Times, serif; background-image: radial-gradient(rgb(0, 0, 0),red); background-clip: text; color:transparent; background-size:500%; animation:fadeIn 3s, slideup 2s , bge 4s infinite;">
-                        search Theme park🎉
+                        Search Theme Park🎉
                     </h1>
-                    
+
+                    <section id="recent-search">
+                     <div id="recent">
+                        <div>
+                            <h1>Recent searches</h1>
+                        </div>
+                     </div>
+                    </section>
                     <input class="input is-focused autocomplete-input" type="text" placeholder="search themePark..."
                         id="text-input">
                 </div>
+                
                 <div id="main">
                     <ul class="autocomplete-list" id="theme-park-list">
 
@@ -82,9 +90,11 @@
 
                 <section id="flex">
                     <div id="parkName" class="same">
-                        <div style="border-bottom: 1px solid black; margin-top:10px; font-size:25px;">
-                            <h1>Park Info</h1>
+
+                        <div style="border-bottom: 1px solid black; margin-top:10px; font-size:25px;" id="ride-box">
+                            <h1 id="park-info">Park Info</h1>
                             <button class="button is-dark is-small is-outlined fade" id="sort-btn" style="font-weight: bold;">Sort by Wait Time</button>
+
                         </div>
                         <section class="flex-box">
                             <div class="col" id="rides" style="border-right:1px solid black;">
