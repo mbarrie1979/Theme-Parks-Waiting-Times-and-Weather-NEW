@@ -98,8 +98,8 @@ $('#theme-park-list').on('click', 'li', function () {
 
 
   // triggers card animation
-  $("#parkName").addClass("showBox").slideDown(2000);
-  $("#weatherName").addClass("showBox").slideDown(2000);
+  animateWindows();
+
 });
 
 
@@ -160,15 +160,14 @@ function getWaitTimes(callback) {
 
       // Checks if API returns ride info based on ID  
       if (rideInfo.length === 0) {
-        $('#ride-box').empty();
-        $('#park-info').empty();
-        $('#rides').empty();
-        $('#waitT').empty();
-        $('#ride-box').append('<p>Information about this park is currently unavailable.</p>');
+        $('#alert-box').empty();
+        $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
         console.log("Ride information is not available for this park");
+        $('#ride-list').empty();
+        $('#wait-list').empty();
       } else {
-        
-        
+
+        $('#alert-box').empty();
         // Sort alphabetically and move closed rides to the bottom
         openRides.sort((a, b) => a.ride.localeCompare(b.ride));
         closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
@@ -189,7 +188,7 @@ function getWaitTimes(callback) {
 
 
 
-        $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
+        // $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
 
 
         if (callback && typeof callback === 'function') {
@@ -347,7 +346,7 @@ function getWeather() {
 
       // Append weather data to the DOM
       $('#weatherName').html(weatherContent);
-      $('#weatherName').addClass('showBox').slideDown(2000);
+      // $('#weatherName').addClass('showBox').slideDown(2000);
     },
     error: function (xhr, status, error) {
       console.error("Error fetching weather:", error);
@@ -375,8 +374,8 @@ function displayUserParks() {
         lon = (park.lon)
         getWaitTimes(toggleSort);
         getWeather();
-        $("#parkName").addClass("showBox").slideDown(2000);
-        $("#weatherName").addClass("showBox").slideDown(2000);
+        animateWindows();
+
       });
 
     // Appends buttons in list items to the DOM
@@ -412,7 +411,10 @@ displayUserParks();
 
 
 
-
+function animateWindows() {
+  $("#parkName").addClass("showBox").slideDown(2000);
+  $("#weatherName").addClass("showBox").slideDown(2000);
+}
 
 
 
