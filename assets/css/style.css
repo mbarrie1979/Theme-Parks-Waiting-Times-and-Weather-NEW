@@ -13,17 +13,44 @@ body {
     background-size:500%;
     animation: bge 5s infinite alternate;
 }
+#rides{
+    border-right:1px solid black;
+}
+          
+#wait-title{
+    border-bottom:1px solid black;
+}
 
 
+#fbrides2 {
+    border-bottom: 1px solid black;
+}
 
+.parkIn {
+    border-bottom: 1px solid black;
+    margin-top:10px; 
+    font-size:25px;
+}
 
+.weatherN {
+    font-size:25px; 
+    margin-top:10px;
+}
 
+.sortbwt {
+    font-weight: bold;
+}
 
-
-
-
-
-
+#search-title {
+    transform:translateY(-40px); 
+    font-size:40px; font-weight:bold; 
+    font-style: italic; 
+    font-family: 'Times New Roman', Times, serif; 
+    background-image: radial-gradient(rgb(0, 0, 0),red); 
+    background-clip: text; color:transparent; 
+    background-size:500%; 
+    animation:fadeIn 3s, slideup 3s, bge 4s infinite;
+}
 
 
 

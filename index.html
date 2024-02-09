@@ -51,11 +51,11 @@
 
     <div id="box" class="container width">
         <div class="notification info-color">
-            <section class="section ">
+            <section class="section">
 
 
                 <div class="control" id="input-box">
-                    <h1 style="transform:translateY(-40px); font-size:40px; font-weight:bold; font-style: italic; font-family: 'Times New Roman', Times, serif; background-image: radial-gradient(rgb(0, 0, 0),red); background-clip: text; color:transparent; background-size:500%; animation:fadeIn 3s, slideup 2s , bge 4s infinite;">
+                    <h1 id="search-title">
                         Search Theme Park🎉
                     </h1>
                 <div class="control" id="alert-box"></div>
@@ -85,21 +85,21 @@
                 <section id="flex">
                     <div id="parkName" class="same">
 
-                        <div style="border-bottom: 1px solid black; margin-top:10px; font-size:25px;" id="ride-box">
+                        <div class="parkIn" id="ride-box">
                             <h1 id="park-info">Park Info</h1>
-                            <button class="button is-dark is-small is-outlined fade" id="sort-btn" style="font-weight: bold;">Sort by Wait Time</button>
+                            <button class="button is-dark is-small is-outlined fade sortbwt" id="sort-btn">Sort by Wait Time</button>
 
                         </div>
                         <section class="flex-box">
-                            <div class="col" id="rides" style="border-right:1px solid black;">
-                                <h1 style="border-bottom: 1px solid black;">rides:</h1>
+                            <div class="col" id="rides" >
+                                <h1 id="fbrides2">rides:</h1>
                               <ul id="ride-list">
                                 <li></li>
                                 </ul>
                             </div>
 
                             <div class="col" id="waitT">
-                                <h1 style="border-bottom: 1px solid black;">wait times:</h1>
+                                <h1 id="wait-title">wait times:</h1>
                                 <ul id="wait-list">
                                    <li></li>
                                 </ul>
@@ -108,8 +108,8 @@
                         </section>
                     </div>
 
-                    <div id="weatherName" class="same">
-                        <h1 style="font-size:25px; margin-top:10px;">weather</h1>
+                    <div id="weatherName" class="same weatherN">
+                        <h1>weather</h1>
                     </div>
 
                 </section>
