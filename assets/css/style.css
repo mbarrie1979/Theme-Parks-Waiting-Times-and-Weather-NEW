@@ -145,18 +145,24 @@ body {
     padding: 0px;
 }
 
+body{
+    height:auto;
+}
 
 .width{
     width:70rem;
 }
 
 #text-input{
-    background: radial-gradient(white,rgb(208, 205, 205));
-    transition: all 0.3s ease-in-out;
+    margin-top:5rem;
+    background-image: linear-gradient(to right,rgb(255, 255, 255),rgb(177, 174, 174));
+    transition: all 0.2s ease-in-out;
+    color:rgb(132, 4, 113);
+    font-weight:bold;
 }
 #text-input:hover{
     box-shadow:0px 0px 5px black;
-    border-color: rgb(0, 255, 17);
+    border-color: rgb(255, 255, 255);
 
 }
 
@@ -180,8 +186,6 @@ body {
     margin-bottom: 20px;
 }
 
-
-
 #box{
     height:300vh;
 }
@@ -193,7 +197,8 @@ body {
 
 #main{
    display:none; 
-   
+   /* height:10rem;
+   overflow-y: auto; */
 }
 
 .show{
@@ -204,21 +209,15 @@ body {
 #theme-park-list:hover{
 cursor: pointer;
 }
-
-
-#myH1{
-    background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
-    background-clip:text;
-    background-size: 300%;
-    color:transparent;
-    font-size: 35px;
-    font-weight:bold;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    animation:fadeIn 4s,slide 6.7s, bge 5s infinite alternate;
+#H1-title{
+    animation: slide 6s;
     position: relative;
     z-index: 1;
 }
-#myH1::after{
+
+
+
+#H1-title::after{
     content:"";
     position: absolute;
     bottom:0;
@@ -231,13 +230,31 @@ cursor: pointer;
     transform-origin:right;
     transition: transform 250ms ease-in ;
 }
-#myH1:hover::after{
+#H1-title:hover::after{
     transform:scaleX(1);
     transform-origin:left;
 }
 
-
-
+#myH1{
+    background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
+    background-clip:text;
+    background-size: 300%;
+    color:transparent;
+    font-size: 35px;
+    font-weight:bold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    animation:bge 5s infinite alternate;
+}
+#funcast{
+  font-size:3rem;
+  background-image: radial-gradient(rgb(255, 251, 251),rgb(242, 12, 196),rgb(54, 17, 220));
+  background-clip: text;
+  color:transparent;
+  background-size: 500%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  animation:fadeOut 5s infinite alternate,bge 5s infinite alternate;
+  transition: all 0.5s ease-in-out;
+}
 #flex{
     display:flex;
     flex-wrap: nowrap;
@@ -382,8 +399,7 @@ width:15rem auto;
 }
 
 #recent{
-    transform: translateX(-2rem);
-    transform: translateY(-7rem);
+    position: absolute;
     margin-right:1rem;
     width:26rem;
     height:7rem;
@@ -401,8 +417,8 @@ width:15rem auto;
 
 #clear-btn{
     position: absolute;
-    top:6rem;
-    left:30rem;
+    top:4rem;
+    left:31rem;
     margin-bottom:2rem;
     transform: translateX(5rem);
     padding:2px;
@@ -433,7 +449,17 @@ transition: transform 0.2s ease-in;
     transform-origin:right
 }
 
+#alert-box{
+    position: absolute;
+    width:20rem;
+}
 
+
+
+@keyframes fadeOut{
+   0%{opacity: 0%;}
+   100%{opacity: 100%;}
+}
 
 @keyframes bge{
     0%{background-position: left;}
@@ -477,15 +503,26 @@ transition: transform 0.2s ease-in;
         display:flex;
         flex-direction: column;
     }
+    #text-input{
+        margin-top:15rem;
+        margin-left:10px;
+    }
 
     #recent{
-        margin-top:6rem;
+        position: absolute;
+        left:1.7rem;
+        top:11rem;
+        width:17rem;
     }
     #clear-btn{
         position: absolute;
-        top:17rem;
+        top:18.5rem;;
         left:0;
         width:10rem;
+    }
+    #dialog{
+        margin-inline:50px;
+        width:20rem;
     }
 }
 
