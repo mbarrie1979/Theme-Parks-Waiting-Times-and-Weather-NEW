@@ -58,6 +58,7 @@ function loadData(data, element) {
       innerElement += `<li data-parkid="${parkObj.id}" data-lat="${parkObj.latitude}" data-lon="${parkObj.longitude}">${park}</li>`;
     }
   });
+  hideWindows();
   $(element).html(innerElement);
 };
 
@@ -73,7 +74,7 @@ $('#theme-park-list').on('click', 'li', function () {
   // runs fuctions with affiliated variables
   getWaitTimes(toggleSort);
   getWeather();
-  // places selected park completed name in text box
+  // clears text input
   $('#text-input').val("")
   // clears the list once selected
   parkListElement.empty();
@@ -367,6 +368,8 @@ function displayUserParks() {
       .addClass('button is-info m-1') // Add Bulma classes and a margin
       .text(park.name) // Set the button text to the park name
       .on('click', function () {
+        hideWindows();
+        $('#main').children().empty()
         parkName = (park.name)
         parkId = (park.Id)
         console.log(`The button is reading: ${parkId}`);
@@ -408,12 +411,16 @@ function getData() {
 getData();
 displayUserParks();
 
-
+function hideWindows() {
+  console.log("hiding windows")
+  $("#parkName").slideUp(200);
+  $("#weatherName").slideUp(200);
+}
 
 
 function animateWindows() {
-  $("#parkName").addClass("showBox").slideDown(2000);
-  $("#weatherName").addClass("showBox").slideDown(2000);
+  $("#parkName").slideDown(2000);
+  $("#weatherName").slideDown(2000);
 }
 
 
