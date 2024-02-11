@@ -356,6 +356,7 @@ function displayUserParks() {
       .addClass('button is-info m-1') // Add Bulma classes and a margin
       .text(park.name) // Set the button text to the park name
       .on('click', function () {
+        $("#dialog").fadeOut(1000);
         hideWindows();
         $('#main').children().empty()
         parkName = (park.name)
@@ -429,6 +430,7 @@ $("#input-box").keyup(function () {
 
 $("#btn").click(function () {
   $("#dialog").slideDown().show();
+  hideWindows()
 })
 
 $("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px", "background": "linear-gradient(45deg,lightblue,lightgreen)", "color": "black", "font-size": "20px", "font-family": "system-ui", "font-weight": "bold" })
