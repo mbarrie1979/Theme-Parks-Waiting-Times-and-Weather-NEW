@@ -156,46 +156,34 @@ function getWaitTimes(callback) {
       $('#ride-list').empty();
       $('#wait-list').empty();
 
-      var openRides = rideInfo.filter(ride => ride.open);
-      var closedRides = rideInfo.filter(ride => !ride.open);
+var openRides = rideInfo.filter(ride => ride.open);
+var closedRides = rideInfo.filter(ride => !ride.open);
 
-      // Checks if API returns ride info based on ID  
-      if (rideInfo.length === 0) {
-        $('#alert-box').empty();
-        $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
-        console.log("Ride information is not available for this park");
-        $('#ride-list').empty();
-        $('#wait-list').empty();
-      } else {
+// Check if the API returns any ride info
+if (rideInfo.length === 0) {
+  $('#alert-box').empty();
+  $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
+  console.log("Ride information is not available for this park");
+} else {
+  // Clear previous alert messages
+  $('#alert-box').empty();
 
-        $('#alert-box').empty();
-        // Sort alphabetically and move closed rides to the bottom
-        openRides.sort((a, b) => a.ride.localeCompare(b.ride));
-        closedRides.sort((a, b) => a.ride.localeCompare(b.ride));
+  // Display both open and closed rides
+  displayRidesAndWaitTimes(openRides);
+  displayRidesAndWaitTimes(closedRides);
+}
 
-        // Append open rides first
-        openRides.forEach(function (ride) {
-          $('#ride-list').append(`<li>${truncateRideName(ride.ride)}</li>`);
-        });
+function displayRidesAndWaitTimes(rides) {
+  rides.forEach(function (ride) {
+    $('#ride-list').append(`<li>${truncateRideName(ride.ride)}</li>`);
+    if (ride.open) {
+      $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`);
+    } else {
+      $('#wait-list').append(`<li>Closed</li>`);
+    }
+  });
+}
 
-        openRides.forEach(function (ride) {
-          $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`);
-        });
-
-        closedRides.forEach(function (ride) {
-          $('#ride-list').append(`<li >${truncateRideName(ride.ride)}</li>`);
-          $('#wait-list').append(`<li>Closed</li>`);
-        });
-
-
-
-        // $('#ride-list, #wait-list').addClass('showBox').slideDown(2000);
-
-
-        if (callback && typeof callback === 'function') {
-          callback();
-        }
-      }
 
       function truncateRideName(rideName) {
         // Adjust the maximum length to your preference
@@ -406,6 +394,11 @@ function getData() {
   // displayUserParks();
 }
 
+$('#clear-btn').on('click', function() {
+  $('#recent').empty();
+  localStorage.removeItem('userParks')
+  userParks = [];
+});
 
 
 getData();
