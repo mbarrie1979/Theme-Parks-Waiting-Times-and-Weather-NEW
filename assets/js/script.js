@@ -427,7 +427,6 @@ $("#input-box").keyup(function () {
   $("#main").addClass("show").slideDown(3000)
 })
 
-
 $("#btn").click(function () {
   $("#dialog").slideDown().show();
   hideWindows()
@@ -438,5 +437,7 @@ $("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px",
 $("#closebtn").click(function () {
   $("#dialog").fadeOut(1000);
 })
+
+
 
 
