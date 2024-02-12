@@ -1,4 +1,6 @@
 /* Brian code here don't forget GIT STATUS */
+
+/* Added and styled background Gif */
 body {
     background: rgba(0, 0, 0, 0.7) url(../Videos/youtube-video-gif\ \(2\).gif);
     background-size: cover;
@@ -7,12 +9,13 @@ body {
     background-attachment: fixed;
     background-blend-mode: darken;
 }
-
+/* Added css styling to  */
 .info-color {
     background-image:linear-gradient(45deg,#7A7DE9,#CA919C,#48B5A5);
     background-size:500%;
     animation: bge 5s infinite alternate;
 }
+/* Added borders to titles and buttons */
 #rides{
     border-right:1px solid black;
 }
@@ -40,7 +43,7 @@ body {
 .sortbwt {
     font-weight: bold;
 }
-
+    /* Search Bar styling */
 #search-title {
     transform:translateY(-40px); 
     font-size:40px; font-weight:bold; 
@@ -144,20 +147,9 @@ body {
     padding: 0px;
 }
 
-<<<<<<< HEAD
 body{
     height:auto;
 }
-=======
-#box {
-    height: 100vh;
-}
-
-
-
-
-
->>>>>>> 06a2132dc8641406f18d692d7d8ddb71afb3510c
 
 .width{
     width:70rem;
