@@ -133,7 +133,6 @@ body {
 
 
 
-/* Eric code here don't forget GIT STATUS */
 #dialog {
    margin-left: 12em;
 }
@@ -144,11 +143,6 @@ body {
     padding: 0px;
 }
 
-<<<<<<< HEAD
-body{
-    height:auto;
-}
-=======
 #box {
     height: 100vh;
 }
@@ -157,7 +151,6 @@ body{
 
 
 
->>>>>>> 06a2132dc8641406f18d692d7d8ddb71afb3510c
 
 .width{
     width:70rem;
