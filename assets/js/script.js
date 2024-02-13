@@ -1,29 +1,30 @@
-// // Brad Code Here don't forget GIT STATUS
-
-
-
+// Park ID Variable for API
 var parkId;
 var apiUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://queue-times.com/parks.json')
 var parkName;
 var dataFetched = false; // Flag to indicate if the data has been fetched
 
 var mainDiv = document.getElementById('main-div');
+
 var parks = [];
 var parksList = [];
+// Object containing data about each park including park ID, Latitude and Longitude.
 var parkObjects = [];
+// Recent searched parks
 var userParks = [];
+// Element for autocomplete of park names
 var parkListElement = $('#theme-park-list')
+// User input for park search
 var textInput = $('#text-input')
 
 
-
+// API for theme park search (companies)
 function fetchThemePark() {
   $.ajax({
     url: apiUrl,
     method: 'GET',
     success: function (data) {
       var companyData = data;
-      // console.log(parkObjects)
       for (var i = 0; i < companyData.length; i++) {
         var parks = companyData[i].parks;
         parks.forEach(function (park) {
@@ -36,7 +37,6 @@ function fetchThemePark() {
         loadData(parksList, parkListElement);
 
       }
-      // console.log(parksList)
     },
     error: function (xhr, status, error) {
       console.error("Error fetching data: ", error);
@@ -46,7 +46,7 @@ function fetchThemePark() {
 
 
 
-// Load data into the element
+// Load data into the element for autocomplete list
 // Update the loadData function to include park id in the li element
 function loadData(data, element) {
   var innerElement = "";
@@ -63,7 +63,7 @@ function loadData(data, element) {
 };
 
 
-// Attach click event listener to the parent ul element and use event delegation
+// Attach click event listener to the parent ul element and use event delegation in autocomplete list
 $('#theme-park-list').on('click', 'li', function () {
 
   // retrieves data attributes and writes to variables
@@ -80,6 +80,7 @@ $('#theme-park-list').on('click', 'li', function () {
   parkListElement.empty();
   getData();
 
+  // object with data about each park for purpose of local storage and recent searches
   userParkData = {
     name: parkName,
     Id: parkId,
@@ -98,7 +99,7 @@ $('#theme-park-list').on('click', 'li', function () {
   }
 
 
-  // triggers card animation
+  // triggers card animation for wait times and weather
   animateWindows();
 
 });
@@ -140,9 +141,9 @@ function getWaitTimes(callback) {
     url: parkInfoAPI,
     method: "GET",
     success: function (data) {
-      // console.log(data);
       var lands = data.lands;
 
+      // iterate through ride to extract name, wait time and boolean if ride is open or closed
       var rideInfo = lands.flatMap(function (land) {
         return land.rides.map(function (ride) {
           return {
@@ -151,40 +152,42 @@ function getWaitTimes(callback) {
             open: ride.is_open
           }
         })
-      }).filter(ride => ride.ride && ride.wait_time);
+      }).filter(ride => ride.ride && ride.wait_time); //filters out if name AND wait time doesn't exist
 
       $('#ride-list').empty();
       $('#wait-list').empty();
 
-var openRides = rideInfo.filter(ride => ride.open);
-var closedRides = rideInfo.filter(ride => !ride.open);
+      var openRides = rideInfo.filter(ride => ride.open);
+      var closedRides = rideInfo.filter(ride => !ride.open);
 
-// Check if the API returns any ride info
-if (rideInfo.length === 0) {
-  $('#alert-box').empty();
-  $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
-  console.log("Ride information is not available for this park");
-} else {
-  // Clear previous alert messages
-  $('#alert-box').empty();
+      // Check if the API returns any ride info
+      if (rideInfo.length === 0) {
+        $('#alert-box').empty();
+        // append this message of park has no information
+        $('#alert-box').append('<h2><strong>Information about this park is currently unavailable.</h2>');
+        console.log("Ride information is not available for this park");
+      } else {
+        // Clear previous alert messages
+        $('#alert-box').empty();
 
-  // Display both open and closed rides
-  displayRidesAndWaitTimes(openRides);
-  displayRidesAndWaitTimes(closedRides);
-}
+        // Display both open and closed rides
+        displayRidesAndWaitTimes(openRides);
+        displayRidesAndWaitTimes(closedRides);
+      }
 
-function displayRidesAndWaitTimes(rides) {
-  rides.forEach(function (ride) {
-    $('#ride-list').append(`<li>${truncateRideName(ride.ride)}</li>`);
-    if (ride.open) {
-      $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`);
-    } else {
-      $('#wait-list').append(`<li>Closed</li>`);
-    }
-  });
-}
+      // displays ride wait times to the DOM
+      function displayRidesAndWaitTimes(rides) {
+        rides.forEach(function (ride) {
+          $('#ride-list').append(`<li>${truncateRideName(ride.ride)}</li>`);
+          if (ride.open) {
+            $('#wait-list').append(`<li>${ride.wait_time} mins.</li>`);
+          } else {
+            $('#wait-list').append(`<li>Closed</li>`);
+          }
+        });
+      }
 
-
+      // truncates ride names so they fit in section 
       function truncateRideName(rideName) {
         // Adjust the maximum length to your preference
         var maxLength = 30;
@@ -205,7 +208,7 @@ function displayRidesAndWaitTimes(rides) {
 
 
 
-
+// section helps with sort button to sort alphabetically or by wait times
 var currentSortMethod = 'alphabetical';
 
 function toggleSort() {
@@ -237,6 +240,7 @@ function toggleSort() {
     }
   });
 
+  // changes text on button 
   const sortButton = $('#sort-btn');
   if (currentSortMethod === 'alphabetical') {
     sortButton.text('Sort by Wait Time');
@@ -265,43 +269,17 @@ $('#sort-btn').on('click', toggleSort)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Mark Code Here don't forget GIT STATUS
-
-
-//AJAX call requires a third party library, jQuery
+// Global variable declaration for getting weather API
 var lat;
 var lon;
-// console.log(`latitude = ${lat},longitude = ${lon}`);
 var weatherAPIKey = 'f5ae2638dc599c5d3619396cd657ae93';
 
+// object to store weather data
 var weather = {};
 
 
 
-// rewuest for openWeather API
+// request for openWeather API
 function getWeather() {
   console.log(`latitude = ${lat}, longitude = ${lon}`);
   var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '&units=imperial';
@@ -335,7 +313,6 @@ function getWeather() {
 
       // Append weather data to the DOM
       $('#weatherName').html(weatherContent);
-      // $('#weatherName').addClass('showBox').slideDown(2000);
     },
     error: function (xhr, status, error) {
       console.error("Error fetching weather:", error);
@@ -345,7 +322,7 @@ function getWeather() {
 }
 
 function displayUserParks() {
-  // storeData(userParks);
+
 
   // Clear existing park buttons to prevent duplicates
   $('#recent').empty();
@@ -355,6 +332,7 @@ function displayUserParks() {
     var parkButton = $('<button>')
       .addClass('button is-info m-1') // Add Bulma classes and a margin
       .text(park.name) // Set the button text to the park name
+      // event listener for recent search buttons
       .on('click', function () {
         $("#dialog").fadeOut(1000);
         hideWindows();
@@ -392,10 +370,10 @@ function getData() {
   if (storedParks !== null) {
     userParks = storedParks;
   }
-  // displayUserParks();
 }
 
-$('#clear-btn').on('click', function() {
+// clear local storage button
+$('#clear-btn').on('click', function () {
   $('#recent').empty();
   localStorage.removeItem('userParks')
   userParks = [];
@@ -421,7 +399,6 @@ function animateWindows() {
 
 
 
-// Erics code //
 
 $("#input-box").keyup(function () {
   $("#main").addClass("show").slideDown(3000)
