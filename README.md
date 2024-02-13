@@ -98,4 +98,4 @@ Contributions to Funcast are welcome! If you have suggestions or improvements, p
 
 ## Deployed Application Link
 
-INSERT HERE
+[Click here to try it out!](https://mbarrie1979.github.io/Theme-Parks-Waiting-Times-and-Weather-NEW/)
