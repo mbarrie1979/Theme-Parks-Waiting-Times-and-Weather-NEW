@@ -45,6 +45,7 @@ body {
 #search-title {
     transform:translateY(-40px); 
     font-size:43px;  
+    animation: slideup 2s;
 }
 
 .honk-uniquifier {
