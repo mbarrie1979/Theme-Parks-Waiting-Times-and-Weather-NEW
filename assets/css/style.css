@@ -144,9 +144,20 @@ body {
     padding: 0px;
 }
 
+<<<<<<< HEAD
 body{
     height:auto;
 }
+=======
+#box {
+    height: 100vh;
+}
+
+
+
+
+
+>>>>>>> 06a2132dc8641406f18d692d7d8ddb71afb3510c
 
 .width{
     width:70rem;
@@ -459,6 +470,9 @@ transition: transform 0.2s ease-in;
    0%{opacity: 0%;}
    100%{opacity: 100%;}
 }
+
+
+
 
 @keyframes bge{
     0%{background-position: left;}

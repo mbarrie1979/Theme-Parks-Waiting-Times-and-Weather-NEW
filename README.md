@@ -60,9 +60,17 @@ Funcast leverages the following technologies:
 
 ## Screenshots
 
-- ![Screenshot 1](./assets/readme_screenshots/Mock_Up_1.jpg)
+- ![Screenshot 1](./assets/readme_screenshots/Screenshot_1.png)
 
----
+- ![Screenshot 2](./assets/readme_screenshots/Screenshot_2.png)
+
+- ![Screenshot 3](./assets/readme_screenshots/Screenshot_3.png)
+
+- ![Screenshot 4](./assets/readme_screenshots/Screenshot_4.png)
+
+- ![Screenshot 5](./assets/readme_screenshots/Screenshot_5.png)
+
+
 
 ## Features
 
