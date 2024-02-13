@@ -400,17 +400,20 @@ function animateWindows() {
 
 
 
+// main div slides down when key is pressed
 $("#input-box").keyup(function () {
   $("#main").addClass("show").slideDown(3000)
 })
 
+// modal is shown when About button is clicked
 $("#btn").click(function () {
   $("#dialog").slideDown().show();
   hideWindows()
 })
-
+// modal is styled
 $("#dialog").css({ "border": "none", "border-radius": "10px", "padding": "10px", "background": "linear-gradient(45deg,lightblue,lightgreen)", "color": "black", "font-size": "20px", "font-family": "system-ui", "font-weight": "bold" })
 
+// modal will activate fade out animation when close button is clicked
 $("#closebtn").click(function () {
   $("#dialog").fadeOut(1000);
 })

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./assets/images/f-img.png">
     <title>Theme Park Wait Times and Weather</title>
-    <!-- Brian and Eric decide CSS Framework and place <link> here to cdn don't forget GIT STATUS-->
+    <!-- CSS Framework from Bulma-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
@@ -17,6 +17,7 @@
             <!-- Moved all styling in HTML into CSS -->
 
     <main>
+        <!-- shows title with gif images and "About" button-->
         <nav class="navbar" role="navigation  " aria-label="main navigation" id="mynav">
             <div class="navbar-brand">
                 <a class="navbar-item">
@@ -24,18 +25,13 @@
 
                         <h1 id="H1-title">
                             <img src="./assets/images/TPimg.gif" id="h1img"><span id="funcast">Fun Cast:</span> <span id="myH1">ThemePark current wait times and weather!</span><img src="./assets/images/parkimg.gif">
-
                         </h1>
                     </div>
                 </a>
-
-
             </div>
 
 
             <div id="navbarBasicExample" class="navbar-menu is-hoverable">
-
-
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
@@ -47,49 +43,49 @@
     </main>
 
 
-
-
-
-
-
+  <!-- contains searchbar, recent searches and heading -->
 
     <div id="box" class="container width">
         <div class="notification info-color">
             <section class="section">
 
-
+                <!--this contains heading-->
                 <div class="control" id="input-box">
                     <h1 id="search-title">
                         Search for a park below!🎉
                     </h1>
                 <div class="control" id="alert-box"></div>
 
+                    <!--this contains recent search div for user search history-->
                     <section id="recent-search">
                         <button id="clear-btn" class="button is-outlined">clear search history</button>
                      <div id="recent">
                         <div>
                             <h1>Recent searches</h1>
                         </div>
-                      
                      </div>
                     </section>
+                    <!--this contains searchbar-->
                     <input class="input is-focused autocomplete-input" type="text" placeholder="search themePark..."
                         id="text-input">
                 </div>
-                
+                <!--when search is made a list will slide down-->
                 <div id="main">
                     <ul class="autocomplete-list" id="theme-park-list">
 
                     </ul>
                 </div>
+
+                <!--contains modal with information about website-->
                 <dialog id="dialog">
                     <p id="ptag">This website is meant to assist theme park patrons track wait times and weather</p>
                     <button id="closebtn" class="button is-danger is-outlined fade">close</button>
                 </dialog>
 
+                <!-- contains section and divs to separate Attractions, Wait times and weather for theme park -->
                 <section id="flex">
                     <div id="parkName" class="same">
-
+                        <!-- div 1 -->
                         <div class="parkIn" id="ride-box">
                             <h1 id="park-info">Park Information</h1>
                             <button class="button is-dark is-small is-outlined fade sortbwt" id="sort-btn">Sort by Wait Time</button>
@@ -102,7 +98,7 @@
                                 <li></li>
                                 </ul>
                             </div>
-
+                            
                             <div class="col" id="waitT">
                                 <h1 id="wait-title">Wait Times:</h1>
                                 <ul id="wait-list">
@@ -112,13 +108,11 @@
 
                         </section>
                     </div>
-
+                             <!-- div 2 -->
                     <div id="weatherName" class="same weatherN">
                         <h1>weather</h1>
                     </div>
-
                 </section>
-
             </section>
         </div>
         </section>
