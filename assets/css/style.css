@@ -1,5 +1,3 @@
-/* Brian code here don't forget GIT STATUS */
-
 /* Added and styled background Gif */
 body {
     background: rgba(0, 0, 0, 0.7) url(../Videos/youtube-video-gif\ \(2\).gif);
@@ -56,88 +54,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Eric code */
-
 /* styles title, buttons,divs and animations  */
 #dialog {
    margin-left: 12em;
@@ -158,16 +74,10 @@ body{
     height: 100vh;
 }
 
-
-
-
-
-
-
 .width{
     width:70rem;
 }
-
+/* changes color of text when user is typing */
 #text-input{
     margin-top:5rem;
     background-image: linear-gradient(to right,rgb(255, 255, 255),rgb(177, 174, 174));
@@ -212,8 +122,6 @@ body{
 
 #main{
    display:none; 
-   /* height:10rem;
-   overflow-y: auto; */
 }
 
 .show{
@@ -224,14 +132,12 @@ body{
 #theme-park-list:hover{
 cursor: pointer;
 }
+/* creates line animation when hovered over */
 #H1-title{
     animation: slide 6s;
     position: relative;
     z-index: 1;
 }
-
-
-
 #H1-title::after{
     content:"";
     position: absolute;
@@ -249,7 +155,7 @@ cursor: pointer;
     transform:scaleX(1);
     transform-origin:left;
 }
-
+/* creates color and animation  */
 #myH1{
     background-image: radial-gradient(rgb(230, 11, 11),rgb(229, 101, 240),rgb(95, 77, 235));
     background-clip:text;
@@ -276,7 +182,7 @@ cursor: pointer;
     justify-content: center;
     align-items: center;
 }
-
+/* styles both attraction and weather divs */
 .same{
     width:50rem;
     height:30rem;
@@ -289,7 +195,7 @@ cursor: pointer;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-
+/* creates space for text within theme park list */
 #parkName, #weatherName{
     margin:10px;
     display: none;
@@ -314,7 +220,7 @@ cursor: pointer;
 #group img{
     width:10px;
 }
-
+/* styles about button  */
 #btn{
     width:8rem;
     font-size: 20px;
@@ -357,7 +263,7 @@ cursor: pointer;
     font-weight: bold;
 
 }
-
+/* styles sort button for sorting wait times and attractions  */
 #sort-btn {
     margin-bottom: 5px;
     background-color: transparent;
@@ -402,7 +308,6 @@ cursor: pointer;
     flex-direction: column;
     width:15rem;
     height:26.7rem;
-   
 }
 
 #recent-search{
@@ -410,7 +315,6 @@ display: flex;
 justify-content: end;
 align-items: end;
 width:15rem auto;
-
 }
 
 #recent{
@@ -429,7 +333,7 @@ width:15rem auto;
 .fade:hover{
     cursor: pointer;
 }
-
+/* styles clear button to clear out user searched history */
 #clear-btn{
     position: absolute;
     top:4rem;
@@ -470,7 +374,7 @@ transition: transform 0.2s ease-in;
 }
 
 
-
+/* animations for text and background */
 @keyframes fadeOut{
    0%{opacity: 0%;}
    100%{opacity: 100%;}
@@ -499,7 +403,7 @@ transition: transform 0.2s ease-in;
     0%{transform: translateY(50rem);}
 }
 
-
+/* this creates a responsive app for mobile screens */
 @media screen and (width < 800px){
     .navbar-brand{
         display:block;
