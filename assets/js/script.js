@@ -17,7 +17,6 @@ var parkListElement = $('#theme-park-list')
 // User input for park search
 var textInput = $('#text-input')
 
-
 // API for theme park search (companies)
 function fetchThemePark() {
   $.ajax({
