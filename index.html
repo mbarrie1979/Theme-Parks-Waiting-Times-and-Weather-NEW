@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./assets/images/f-img.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
     <title>Theme Park Wait Times and Weather</title>
     <!-- CSS Framework from Bulma-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -22,9 +25,9 @@
             <div class="navbar-brand">
                 <a class="navbar-item">
                     <div id="cover">
-
                         <h1 id="H1-title">
                             <img src="./assets/images/TPimg.gif" id="h1img"><span id="funcast">Fun Cast:</span> <span id="myH1">ThemePark current wait times and weather!</span><img src="./assets/images/parkimg.gif">
+                            <span id="date"></span><img src="./assets/images/clock.gif">
                         </h1>
                     </div>
                 </a>
@@ -51,8 +54,8 @@
 
                 <!--this contains heading-->
                 <div class="control" id="input-box">
-                    <h1 id="search-title">
-                        Search for a park below!🎉
+                    <h1 id="search-title" class="honk-uniquifier">
+                        Search for a park below!🎢
                     </h1>
                 <div class="control" id="alert-box"></div>
 

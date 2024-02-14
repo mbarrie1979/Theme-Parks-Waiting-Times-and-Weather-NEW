@@ -396,9 +396,12 @@ function animateWindows() {
 }
 
 
+// sets current time and day
+let day = Date().slice(0,-42)
 
-
-
+setInterval(function(){
+  $("#date").text(`${day} -- ${  new Date().toLocaleTimeString()}`)
+},1000)
 
 // main div slides down when key is pressed
 $("#input-box").keyup(function () {
