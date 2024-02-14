@@ -44,13 +44,19 @@ body {
     /* Search Bar styling */
 #search-title {
     transform:translateY(-40px); 
-    font-size:40px; font-weight:bold; 
-    font-style: italic; 
-    font-family: 'Times New Roman', Times, serif; 
-    background-image: radial-gradient(rgb(0, 0, 0),red); 
-    background-clip: text; color:transparent; 
-    background-size:500%; 
-    animation:fadeIn 3s, slideup 2s, bge 4s infinite;
+    font-size:43px;  
+    animation: slideup 2s;
+}
+
+.honk-uniquifier {
+  font-family: "Honk", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "MORF" 15,
+    "SHLN" 50;
+    text-shadow:0px 0px 20px white;
 }
 
 
@@ -336,7 +342,7 @@ width:15rem auto;
 /* styles clear button to clear out user searched history */
 #clear-btn{
     position: absolute;
-    top:4rem;
+    top:4.3rem;
     left:31rem;
     margin-bottom:2rem;
     transform: translateX(5rem);
@@ -373,6 +379,17 @@ transition: transform 0.2s ease-in;
     width:20rem;
 }
 
+#date{
+    margin-left:3rem;
+    font-size:1.5rem;
+    font-weight:bold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-image: radial-gradient(rgb(253, 253, 253),rgb(132, 4, 138),rgb(136, 12, 145),rgb(0, 0, 0));
+    background-size: 500%;
+    animation: bge 10s infinite alternate;
+    background-clip: text;
+    color:transparent;
+}
 
 /* animations for text and background */
 @keyframes fadeOut{
@@ -445,6 +462,10 @@ transition: transform 0.2s ease-in;
     #dialog{
         margin-inline:50px;
         width:20rem;
+    }
+    #date{
+        display:block;
+        margin-left:0px;
     }
 }
 
